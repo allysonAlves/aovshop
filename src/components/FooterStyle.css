@@ -1,0 +1,57 @@
+.footer{   
+    padding: 20px 0 20px 0;
+    
+    background-color: #222222;
+    display: flex;
+    justify-content: center;
+    border-top: 2px solid orangered;
+    color: gray;
+    
+    
+}
+.footerSubMenu{
+   
+    width: var(--contentSize);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+
+.footerSubMenu ul{
+    font-size: 13px;
+    margin-top: 10px;
+    
+    
+}
+
+.footerSubMenu ul ol{
+    margin-top: 5px;
+}
+
+.footerSubMenu ul ol:hover{
+    cursor: pointer;
+    color: orangered;
+}
+
+#input-cadastrar-email{
+    width: 100%;
+    height: 30px;
+    display: var(--inputOpen);
+}
+
+#button-cadastrar-email{
+    width: 100px;
+    height: 30px;
+    background-color: orangered;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    
+}
+
+#button-cadastrar-email:hover{
+    cursor: pointer;
+    background-color: rgb(128, 36, 2);
+}
+

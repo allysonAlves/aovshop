@@ -1,0 +1,20 @@
+@media screen and (max-width: 480px) {    
+
+    .produtos{
+         display: flex;               
+         overflow-x: auto;
+         overflow-y: none;
+         scroll-snap-type:  x mandatory; 
+         padding: 20px;              
+         gap: 12px;       
+         scroll-behavior: smooth;
+ 
+     }
+ 
+     .produtos div{
+         flex: 0 0 100%;
+         scroll-snap-align: center;
+         
+     }
+ 
+ }

@@ -1,0 +1,241 @@
+.box-redes-sociais{
+    height: 20px;
+    width: 63%;
+    color: #444444;
+    display: flex;
+    align-items: center;   
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.box-redes-sociais a{
+    font-size: 22px;
+    align-items: center;    
+}
+
+.box-redes-sociais a:hover{
+    color: gray;
+    cursor: pointer;
+}
+nav{
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    background-color: #222222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+#navbar .cart-btn{
+    align-self: center;
+}
+
+
+.logo img{
+    width: 25px;
+}
+
+#navbar form {
+    display: flex;    
+    background-color: #333333;    
+    border-radius: 5px;
+    overflow: hidden;    
+    justify-content: space-between;
+    align-items: center;    
+}
+
+#navbar input{
+    width: 90%;    
+    padding: 0.2rem 0.8rem;
+    border-radius: 4px;
+    border: none;
+    font-weight: bold;
+    font-size: 15px;
+    background-color: #333333;
+}
+
+#navbar input:focus{
+    border: none;
+    outline: none;
+}
+
+#navbar form button{
+    background-color: transparent;    
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 15px;
+   
+}
+#navbar form button:hover{
+    background-color: transparent;
+    color: orangered;
+}
+a{
+    font-size: 30px;
+}
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+.div-btn-gologin a{
+    font-size: 17px;
+    color: white;
+}
+
+.orangehover:hover{
+    color: rgb(253, 93, 34);
+    transition: 0.5s ease-in;
+    cursor: pointer;
+}
+
+.cart-btn{
+    position: relative;
+    color: white;
+    width: 30px;
+    font-weight: bold;
+}
+.cart-btn #itens-carrinho{
+    position: absolute;
+    background-color: #d46e29;
+    border-radius: 20px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    top: -13px;
+    right: -10px;
+    z-index: 0;
+}
+
+.cart-btn #icon-carrinho{
+    z-index: 1;
+}
+
+@media screen and (min-width: 769px) {
+    
+    #navbar{
+        margin: 0 0 5px 0;
+        width: var(--contentSize);
+        background-color: #222222;
+        display: flex;        
+        align-items: center;
+        justify-content: space-between;        
+    }
+
+    #navbar form{
+        max-height: 50px;
+        width: 60%;
+    }
+    #navbar form input{
+        background-color: transparent;
+        color: white;
+        height: 40px;
+    }   
+
+    .logo{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;        
+        color: white;        
+        font-size: 19px;       
+        font-weight: bold;   
+    }  
+   
+    #navbar .btn-menu-lateral{
+        font-size: 30px;  
+        color: white;        
+        align-self: center; 
+    }
+    .div-btn-gologin{    
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .cart-btn{
+        font-size: 22px;
+    }
+}
+@media screen and (max-width: 1024px) {
+    #navbar form button, .div-btn-gologin a{
+        display: none;
+        
+    }  
+}
+@media screen and (max-width: 768px) {
+    
+    #navbar{ 
+        width: 100%;       
+        margin-top: 15px;        
+        display: grid;       
+        grid-template-columns: 1fr 1fr 2fr 1fr 1fr;        
+        -ms-grid-column-align: center;
+        -ms-grid-row-align: center;
+        padding: 5px;
+        background-color: #222222;
+    }
+    #navbar form{
+        height: 45px;
+    }
+    #navbar .btn-menu-lateral{
+        font-size: 30px;  
+        color: white; 
+        width: 100%;  
+    }
+    #navbar .logo{
+        color: white;
+        font-size: 19px;       
+        grid-column-start: 3;
+        text-align: center;
+        font-weight: bold;
+        grid-column-start: 2;
+        grid-column-end: 5;
+    } 
+    #navbar .logo img{
+        width: 20px;
+        
+    }
+    form{        
+        grid-row-start: 2;
+        grid-column-start: 1;
+        grid-column-end: 6;     
+        
+    }
+    
+    #navbar form input{
+        background-color: transparent;
+        color: white;
+    }  
+    
+  
+    #navbar .cart-btn{
+        font-size: 22px;
+        align-self: end;
+        justify-self: center;
+        text-align: center;
+        grid-column-start: 5;
+        grid-row-start: 1;
+    }
+
+    .box-redes-sociais{
+        display: none;
+    }
+}
+

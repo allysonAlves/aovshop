@@ -1,0 +1,37 @@
+.categoria{
+    padding-top: 100px;
+    color: aliceblue;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.categoria-limite{
+    width: var(--contentSize);
+}
+
+.menu-filters-options{
+    font-size: 11px;
+    color: gray;
+    font-weight: bold;    
+    padding: 15px 0 30px 0;
+    margin-bottom: 15px;
+}
+.div-links-categorias{
+    display: flex;
+    align-items: center;    
+    gap: 5px;    
+}
+.link-categoria{
+    color: rgb(236, 99, 49);
+    cursor: pointer;
+    font-size: 11px;
+}
+.link-categoria:hover{
+    opacity: 0.5;
+}
+
+.out{
+    width: 100%;
+}
