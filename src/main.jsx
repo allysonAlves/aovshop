@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import Produto from './pages/Produto'
 import Search from './pages/Search'
 import Categoria from "./pages/Categoria"
+import Login from "./pages/Login.jsx"
 
 import './index.css'
 
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path='produto/:id' element={<Produto/>}/>
           <Route path='search' element={<Search/>}/>
           <Route path='categoria/:id' element={<Categoria/>}/>
+          <Route path='login' element={<Login/>}/>
         </Route>        
       </Routes>
     </BrowserRouter>

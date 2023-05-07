@@ -10,10 +10,10 @@ function Home() {
 
   const [produtos, setProdutos] = useState([])
   const [produtosFiltrados, setProdutosfiltrados] = useState([]);
-
+  const produtosURL = import.meta.env.VITE_URL_PRODUTOS;
     
     useEffect(() =>{
-      const url_produtos = `https://allycadernodoserros-default-rtdb.firebaseio.com/loja/produtos.json`;
+      const url_produtos = `${produtosURL}produtos.json`;
       fetch(url_produtos).then(res => res.json()).then(json => { 
         setProdutos(json);
       }); 

@@ -1,0 +1,74 @@
+.login-page{
+    padding-top: 80px;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    flex-basis: auto;
+    background-color: #303030;
+    color: white;
+}
+.login-page .login-limite{
+    width: var(--contentSize);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-page .form-login{
+    display: flex;
+    flex-direction: column;
+    width: 400px;   
+    border-radius: 10px;
+    padding: 20px;
+    gap: 30px;
+    border-top: 2px solid orangered;
+    border-bottom: 2px solid orangered;
+}
+
+#input-email,#input-senha{
+    border: none;
+    border-bottom: 1px solid #999999;
+    height: 40px;
+    background-color: transparent;
+    padding-left: 10px;
+    color: white;
+    outline: none;
+    transition: 0.5s ease-in-out;
+}
+
+#input-email:focus,#input-senha:focus{
+    border-bottom-color: orangered;
+}
+
+.login-page .form-login input{
+    height: 40px;
+    
+}
+
+.login-page .form-login #button-login{
+    background-color: green;
+    color: white;
+    border: none;
+    transition: 0.2s ease-in-out;
+}
+
+.login-page .form-login #button-login:hover{
+    opacity: 0.8;
+    cursor: pointer;
+}
+.login-page .criar-recuperar{
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+}
+.login-page #criar-conta{
+    color: rgb(243, 108, 59);
+}
+
+#criar-conta:hover, #recuperar-senha:hover{
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.login-page #recuperar-senha{
+    color: #999999;
+}

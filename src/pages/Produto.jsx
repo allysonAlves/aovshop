@@ -6,11 +6,13 @@ import { useParams } from "react-router-dom";
 import { FaBarcode, FaShareAlt } from 'react-icons/fa'
 import { SiPix } from 'react-icons/si'
 import { RxChevronUp, RxChevronDown} from 'react-icons/rx'
+import{ BsCreditCard } from 'react-icons/bs'
 
 import './Produto.css'
 
 function Produto() {
 
+  const produtosURL = import.meta.env.VITE_URL_PRODUTOS;
   const {id} = useParams()
  
   const [produto, setProduto] = useState(null)
@@ -20,7 +22,7 @@ function Produto() {
   
 
   useEffect(() =>{
-    const url_produtos = `https://allycadernodoserros-default-rtdb.firebaseio.com/loja/produtos.json`;
+    const url_produtos = `${produtosURL}produtos.json`;
     fetch(url_produtos).then(res => res.json()).then(json => { 
         setProdutos(json); 
                   
@@ -42,9 +44,18 @@ const getParcelas = () => {
   }
   return items;
 }
-const parcelasView = () =>
+const share = async () =>
 {
+  try{
+    await navigator.share({
+      title: produto.descricao,
+      text: '',
+      url: location.href,
+    });
+  } 
+  catch{
 
+  }
 }
 
   return (
@@ -67,10 +78,13 @@ const parcelasView = () =>
             <div className="container-compra">
               <div className="box-desconto-share">
                 <div className="box-desconto">
-                  <p>189 vendidos</p>
+                  <p>{Math.trunc( 100/(produto.precoAnterior/produto.precoAtual))}% </p>
+                </div>
+                <div className="box-desconto">
+                  <p>312</p>
                 </div>
                 <div className="box-share">
-                  <FaShareAlt/>
+                  <FaShareAlt onClick={share}/>
                 </div>
               </div>
               <div className="classificacao">
@@ -93,28 +107,35 @@ const parcelasView = () =>
                 </div>
               </div>
               <div className="box-valor-parcelado">
-                <p className="valor-parcelado realce">
-                  {convert_moeda(produto.precoParcelado)}
-                </p>
-                <p className="valor-da-parcela">
-                  <span>em até </span>
-                  <span className='realce'>12x</span>
-                  <span> de </span>
-                  <span className="realce">{convert_moeda(produto.precoParcelado)}</span>
-                  <span> sem juros no cartão</span>
-                </p>
-                <div className="container-mais-parcelas">
-                  <span onClick={() => setShowParcelas(!showParcelas)} className="box-titulo-mais-parcelas">
-                    VER PARCELAMENTO  {!showParcelas? <RxChevronDown/>: <RxChevronUp/> }
-                  </span>
+                <div className="box-parcelado">
+                  <div className="box-icons">
+                    <BsCreditCard/>
+                  </div>
+                  <div>
+                    <p className="valor-parcelado realce">
+                      {convert_moeda(produto.precoParcelado)}
+                    </p>
+                    <p className="valor-da-parcela">
+                      <span>em até </span>
+                      <span className='realce'>12x</span>
+                      <span> de </span>
+                      <span className="realce">{convert_moeda(produto.precoParcelado)}</span>
+                      <span> sem juros no cartão</span>
+                    </p>
+                    <div className="container-mais-parcelas">
+                      <span onClick={() => setShowParcelas(!showParcelas)} className="box-titulo-mais-parcelas">
+                        VER PARCELAMENTO  {!showParcelas? <RxChevronDown/>: <RxChevronUp/> }
+                      </span>
 
-                  {showParcelas && 
-                    <div className="box-parcelas">
-                    {getParcelas()}               
-                    </div>             
-                  }                  
-                     
-                         
+                      {showParcelas && 
+                        <div className="box-parcelas">
+                        {getParcelas()}               
+                        </div>             
+                      }                  
+                        
+                            
+                    </div>
+                  </div>
                 </div>
               </div>
               <button className="button-comprar">COMPRAR</button>

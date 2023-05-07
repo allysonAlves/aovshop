@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 
 const Categoria = () => {
+    const produtosURL = import.meta.env.VITE_URL_PRODUTOS;
     const {id} = useParams()
     const [seachParams] = useSearchParams();
     const query = seachParams.get("sub");
@@ -16,7 +17,7 @@ const Categoria = () => {
 
     
     useEffect(() =>{
-        const url_produtos = `https://allycadernodoserros-default-rtdb.firebaseio.com/loja/produtos.json`;
+        const url_produtos = `${produtosURL}produtos.json`;
         fetch(url_produtos).then(res => res.json()).then(json => { 
             setProdutos(json); 
                       

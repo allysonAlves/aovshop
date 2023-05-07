@@ -60,7 +60,7 @@ function Navbar({ShowSidebar}) {
             </form>
 
             <div className='div-btn-gologin orangehover'>
-                <Link to="/" className='orangehover'>
+                <Link to="/login" className='orangehover'>
                     Fazer Login
                 </Link>
             </div>
