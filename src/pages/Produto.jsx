@@ -1,7 +1,7 @@
 import React from 'react'
 import ProdutoGrid from '../components/ProdutoGrid'
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import { FaBarcode, FaShareAlt } from 'react-icons/fa'
 import { SiPix } from 'react-icons/si'
@@ -33,6 +33,14 @@ function Produto() {
 useEffect(() =>{
     setProduto(produtos[id]);
     document.title = produtos.length > 0 && produtos[id].descricao;
+
+    let produtosVisitados = localStorage.getItem('visitados')? JSON.parse(localStorage.getItem('visitados')): [];
+    if(!produto) return;
+    if(!produtosVisitados.some(p => p == produto.id)){
+      produtosVisitados.unshift(produto.id);
+      localStorage.setItem('visitados', JSON.stringify(produtosVisitados));
+    } 
+    setProdutosfiltrados(produtosVisitados.map(i => produtos[i]))
 },[produtos,id])
 
 const convert_moeda = (s) => s.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}); 
@@ -78,7 +86,7 @@ const share = async () =>
             <div className="container-compra">
               <div className="box-desconto-share">
                 <div className="box-desconto">
-                  <p>{Math.trunc( 100/(produto.precoAnterior/produto.precoAtual))}% </p>
+                  <p>{Math.trunc( 100/(produto.precoAnterior/produto.precoAtual)-100)}% </p>
                 </div>
                 <div className="box-desconto">
                   <p>312</p>
@@ -143,6 +151,11 @@ const share = async () =>
             </div>
           </div>
           
+        </div>
+      }
+      {produtosFiltrados && 
+        <div className='box-recentes'>
+          {produtosFiltrados.filter(f => f.id != produto.id).map(pd => <Link to={`/produto/${pd.id}`} className='recentes-item'> <img title={pd.descricao} className='imagem-recentes' src={pd.imagemProduto}/></Link>)}
         </div>
       }
     </div>

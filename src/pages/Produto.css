@@ -217,4 +217,28 @@
     background-color: rgb(0, 95, 0);
     cursor: pointer;
 }
-   
+
+.box-recentes{
+    width: var(--contentSize);
+    background-color: #202020;
+    height: 100px;
+    display: flex;
+    gap: 5px;
+}
+
+.recentes-item{
+    overflow: hidden;
+    background-color: white;
+    opacity: 0.6;
+}
+
+.recentes-item:hover{
+    opacity: 1;
+    cursor: pointer;
+}
+
+.imagem-recentes{
+    background-color: white;
+    max-width: 100%;
+    max-height: 100%;
+}

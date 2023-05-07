@@ -44,7 +44,7 @@ function Home() {
           <ProdutoGrid produtos={produtos.filter(i => typeof i.promocoes == 'object'? i.categoria.includes("mais vendidos"): false)}/>
         </div>
 
-        <img src='https://img.terabyteshop.com.br/banner/2292.jpg'/>
+        <img src='https://img.terabyteshop.com.br/banner/2303.jpg'/>
         <h3>NOVIDADES</h3>
         <div className='mais-vendidos'>
           <ProdutoGrid produtos={produtos.filter(i => typeof i.promocoes == 'object'? i.categoria.includes("novidades"): false)}/>
