@@ -29,7 +29,7 @@
 }
 
 .container-imagem{
-    width: 95%; 
+    width: calc(var(--contentSize)/2);
        
 }
 

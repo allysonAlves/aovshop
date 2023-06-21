@@ -12,6 +12,7 @@ const Categoria = () => {
     const {id} = useParams()
     const [seachParams] = useSearchParams();
     const query = seachParams.get("sub");
+    const queryMarca = seachParams.get("m");
     const [produtos, setProdutos] = useState([])
     const [produtosFiltrados, setProdutosfiltrados] = useState([]);
 
@@ -27,8 +28,13 @@ const Categoria = () => {
 
     useEffect(() =>{
         const sec = produtos.filter(produto => query? [id,query].every(categoria => produto.categoria.includes(categoria)): produto.categoria.includes(id));
+
+        const final = queryMarca && sec? 
+            sec.filter(produto => produto.categoria.includes(queryMarca)) :
+            [];
+
          setProdutosfiltrados(sec);
-    },[produtos,query,id])
+    },[produtos,query,id,queryMarca])
  
   return (
     <div className='categoria'>        

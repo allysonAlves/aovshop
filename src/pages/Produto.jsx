@@ -3,7 +3,7 @@ import ProdutoGrid from '../components/ProdutoGrid'
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 
-import { FaBarcode, FaShareAlt } from 'react-icons/fa'
+import { FaBarcode, FaShareAlt, FaAngleRight } from 'react-icons/fa'
 import { SiPix } from 'react-icons/si'
 import { RxChevronUp, RxChevronDown} from 'react-icons/rx'
 import{ BsCreditCard } from 'react-icons/bs'
@@ -96,7 +96,17 @@ const share = async () =>
                 </div>
               </div>
               <div className="classificacao">
-                1º posição em placa mãe
+               {produto?.categoria &&
+                  <div className='div-links-categorias'>
+                  
+                    <Link to={`/categoria/${produto.categoria[0]}`} className='link-categoria'>{produto.categoria[0].toUpperCase()}</Link>
+                    <FaAngleRight/>  
+                    <Link to={`/categoria/${produto.categoria[0]}?sub=${produto.categoria[1]}`} className='link-categoria'>{produto.categoria[1].toUpperCase()}</Link>
+                    <FaAngleRight/>  
+                    <Link to={`/categoria/${produto.categoria[0]}?sub=${produto.categoria[1]}&m=${produto.categoria[2]}`} className='link-categoria'>{produto.categoria[2].toUpperCase()}</Link>
+                  </div>
+                }
+                                          
               </div>
               <div className="produto-titulo">
                 <h1>{produto.descricao}</h1>
