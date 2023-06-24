@@ -64,17 +64,59 @@
 .card:hover button{
     display: block;
 }
-.card button{
-    background-color: green;
+
+.card .btn-bottom{
     border-radius: 0 0 5px 5px;
     height: 40px;
     width: 100%;
+    color: white;
+}
+
+.card .btn-add{
+    background-color: green; 
     border: none;
     margin-top: 5px;
-    font-size: 12px;
-    color: white;
+    font-size: 12px;    
     display: none;
     cursor: pointer;
+}
+
+.card .btn-onCart{    
+    border-radius: 0 0 5px 5px;
+    height: 40px;
+    width: 100%;    
+    margin-top: 5px;
+    font-size: 25px;
+    color: white;    
+    cursor: pointer;    
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.card .btn-onCart button{
+    border: none;
+    width: 40px;
+    height: 25px;
+    background-color: #191919;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card .btn-onCart button:first-child{
+    color: red;
+}
+
+.card .btn-onCart button:last-child{
+    color: Green;
+}
+
+.card .btn-onCart button:hover{
+    cursor: pointer;
+    opacity: 0.7;
 }
 
 .card button:hover{
@@ -83,7 +125,7 @@
 
 @media screen and (max-width: 769px)
 {
-    .card button{
+    .card .btn-add{
         display: block;
     }
 }

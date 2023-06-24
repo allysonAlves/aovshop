@@ -1,10 +1,13 @@
 .categoria{
-    padding-top: 100px;
-    color: aliceblue;
-    height: 100vh;
+    background-color: #252525;
+    color: white;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
     width: 100%;
+    padding: var(--topSpace) 0 50px 0;
+    min-height: 70vh;
 }
 
 .categoria-limite{

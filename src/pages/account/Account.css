@@ -1,0 +1,81 @@
+.account-page{
+    width: var(--contentSize);    
+    padding: var(--topSpace);
+    align-self: center;
+    flex-grow: 1;
+    display: flex;     
+    align-items: center;
+    flex-direction: column;
+}
+
+.account-page .page-limit{
+    width: 60%;
+}
+
+.email-confirmation{
+    color: orangered;    
+    font-weight: 600;
+    font-size: 2rem; 
+    border: 2px solid white;
+    height: 50px;
+    align-items: center;
+    display: flex;
+    padding: 10px;
+    
+}
+
+.account-page{
+    color: white;
+}
+
+.account-data{
+    padding-top: 50px;
+}
+
+.account-data h3{
+    font-weight: 500;
+}
+
+.account-data .data{
+    padding-top: 10px;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.8em;
+    font-style: italic;
+    color: #888;
+}
+
+.account-data .btns-data{
+    margin-top: 15px;
+    display: flex;
+    gap: 5px;
+}
+
+.account-data .btns-data button{
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.account-data .btns-data button:hover{
+    opacity: 0.7;
+    cursor: pointer;
+}
+.account-data #edit-btn{
+    background-color: var(--secundaryOrange);
+}
+
+.account-data .btn-send-email-validade{
+    margin-left: 5px;
+    box-shadow: 0 0 5px green;
+    padding: 2px;
+    background-color: darkgreen;
+    color: white;
+}
+
+.account-data .btn-send-email-validade:hover{
+    opacity: 0.7;
+    cursor: pointer;
+}

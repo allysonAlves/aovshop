@@ -7,9 +7,13 @@ import Home from './pages/Home'
 import Produto from './pages/Produto'
 import Search from './pages/Search'
 import Categoria from "./pages/Categoria"
-import Login from "./pages/Login.jsx"
+import Login from "./pages/Login/Login.jsx"
+import Cadastro from "./pages/Login/Cadastro.jsx"
+import Account from "./pages/account/Account.jsx"
+import Orders from "./pages/account/Orders.jsx"
 
 import './index.css'
+import Cart from "./pages/Cart/Cart.jsx"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -21,6 +25,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path='search' element={<Search/>}/>
           <Route path='categoria/:id' element={<Categoria/>}/>
           <Route path='login' element={<Login/>}/>
+          <Route path='singin' element={<Cadastro/>}/>
+          <Route path='account' element={<Account/>}/>
+          <Route path='account/orders' element={<Orders/>}/>
+          <Route path='/cart' element={<Cart/>}/>
         </Route>        
       </Routes>
     </BrowserRouter>

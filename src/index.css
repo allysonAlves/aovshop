@@ -10,17 +10,24 @@ html,body{
 :root{
   --contentSize: 1250px;
   --sidebarSize: 350px;
+  --primaryOrange: #d46e29;
+  --secundaryOrange: orangered;
+  --primaryColor: #333;
+  --secundaryColor:#222;
+  --topSpace: 82px;
+
   @media screen and (max-width: 1274px) {
-    --contentSize: 1024px;
+    --contentSize: 1044px;
   }
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1064px) {
     --contentSize: 740px;
   }
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 780px) {
     --contentSize: 90%;
+    --topSpace: 105px;
   }
   @media screen and (max-width: 480px){
-    --sidebarSize: 90%;
+    --sidebarSize: 280px;
   }
 
 }

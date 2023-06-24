@@ -1,5 +1,5 @@
 .login-page{
-    padding-top: 80px;
+    padding-top: var(--topSpace);
     display: flex;
     justify-content: center;
     flex-grow: 1;
@@ -22,9 +22,10 @@
     gap: 30px;
     border-top: 2px solid orangered;
     border-bottom: 2px solid orangered;
+    margin: 50px 0 50px 0;
 }
 
-#input-email,#input-senha{
+.login-page input{
     border: none;
     border-bottom: 1px solid #999999;
     height: 40px;
@@ -35,7 +36,7 @@
     transition: 0.5s ease-in-out;
 }
 
-#input-email:focus,#input-senha:focus{
+.login-page input:focus{
     border-bottom-color: orangered;
 }
 
@@ -60,11 +61,13 @@
     justify-content: space-between;
     font-size: 13px;
 }
-.login-page #criar-conta{
+.login-page .criar-conta{
+    text-decoration: none;
     color: rgb(243, 108, 59);
+    font-size: 15px;
 }
 
-#criar-conta:hover, #recuperar-senha:hover{
+.criar-conta:hover, #recuperar-senha:hover{
     opacity: 0.7;
     cursor: pointer;
 }

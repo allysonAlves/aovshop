@@ -1,0 +1,53 @@
+.cart-page{
+    margin-top: var(--topSpace);
+    background-color: var(--primaryColor);
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    color: white;
+}
+
+.cart-content{
+    width: var(--contentSize);
+    padding-top: 20px;
+    margin: 30px 0 30px 0;
+    min-height: 70vh;
+    gap: 5px;
+    display: flex;    
+    flex-direction: column;
+}
+
+.cart-content h1{
+    font-weight: 500;
+}
+
+.cart-content .product-item{
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 15px 0 25px 0;
+}
+
+
+.cart-content .box-total-cart .valor-vista{
+    color: #008000;
+    font-size: 25px;
+}
+.cart-content .box-total-cart .valor-parcela{
+    color: gray;
+}
+
+.cart-content .btn-finalizar-compra{
+    height: 40px;
+    background-color: #008000;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    margin-top: 10px;
+    max-width: 400px;
+}
+
+.cart-content .btn-finalizar-compra:hover{
+    cursor: pointer;
+    opacity: 0.7;
+}

@@ -1,3 +1,7 @@
+.opacity-on-focus:focus{
+    opacity: 0.7;
+}
+
 .box-redes-sociais{
     height: 20px;
     width: 63%;
@@ -127,6 +131,47 @@ a:active {
     z-index: 1;
 }
 
+.div-btn-account{
+    border: 2px solid #333333;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    height: 40px;
+    padding: 0.2rem;
+}
+.div-btn-account:hover{
+    cursor: pointer;
+}
+
+.div-btn-account .div-go-account{
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.div-btn-account .div-go-account a{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex: 1;
+}
+
+.div-btn-account .div-go-account:hover{
+    opacity: 0.7;
+}
+
+.div-btn-account .btn-sair{    
+    display: flex;
+    color: #acacac;
+    align-items: end;
+    flex: 1;
+    font-size: 11px;    
+}
+
+.div-btn-account .btn-sair:hover{
+    color: red;
+}
+
 @media screen and (min-width: 769px) {
     
     #navbar{
@@ -173,8 +218,8 @@ a:active {
         font-size: 22px;
     }
 }
-@media screen and (max-width: 1024px) {
-    #navbar form button, .div-btn-gologin a{
+@media screen and (max-width: 1064px) {
+    #navbar form button, .div-btn-gologin{
         display: none;
         
     }  

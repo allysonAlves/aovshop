@@ -19,7 +19,14 @@ function Produto() {
   const [produtosFiltrados, setProdutosfiltrados] = useState([])
   const [produtos, setProdutos] = useState([])
   const [showParcelas, setShowParcelas] = useState(false)
+
   
+  
+  function obterProdutosFiltrados(){
+    let filtrados = produtos.filter(f => f.id != produto.id);
+    filtrados.sort(compareFn);
+    return filtrados;
+  }
 
   useEffect(() =>{
     const url_produtos = `${produtosURL}produtos.json`;
@@ -32,16 +39,30 @@ function Produto() {
 
 useEffect(() =>{
     setProduto(produtos[id]);
+    if(!produto) return;
     document.title = produtos.length > 0 && produtos[id].descricao;
 
-    let produtosVisitados = localStorage.getItem('visitados')? JSON.parse(localStorage.getItem('visitados')): [];
-    if(!produto) return;
-    if(!produtosVisitados.some(p => p == produto.id)){
-      produtosVisitados.unshift(produto.id);
-      localStorage.setItem('visitados', JSON.stringify(produtosVisitados));
-    } 
-    setProdutosfiltrados(produtosVisitados.map(i => produtos[i]))
-},[produtos,id])
+},[produtos, id])
+
+function compareFn(a, b) {
+  let aCompare = 0;
+  let bCompare = 0;
+  for(const cat of produto.categoria)
+  {
+    if(a.categoria.includes(cat)){ aCompare++ }
+    if(b.categoria.includes(cat)){ bCompare++ }
+   
+  }
+
+  if (aCompare > bCompare) {
+    return -1;
+  }
+  if (aCompare < bCompare) {
+    return 1;
+  }
+
+  return 0;
+}
 
 const convert_moeda = (s) => s.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}); 
 const getParcelas = () => {
@@ -163,9 +184,11 @@ const share = async () =>
           
         </div>
       }
-      {produtosFiltrados && 
+      {produto && 
         <div className='box-recentes'>
-          {produtosFiltrados.filter(f => f.id != produto.id).map(pd => <Link to={`/produto/${pd.id}`} className='recentes-item'> <img title={pd.descricao} className='imagem-recentes' src={pd.imagemProduto}/></Link>)}
+          {           
+            obterProdutosFiltrados().map(pd => <Link to={`/produto/${pd.id}`} className='recentes-item'> <img title={pd.descricao} className='imagem-recentes' src={pd.imagemProduto}/></Link>)
+          }
         </div>
       }
     </div>

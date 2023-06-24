@@ -18,9 +18,11 @@ const ProdutoGrid = ({categoria , sub, produtos}) => {
   }, [categorias]);
 
   return (
-    <div className='produtos'>
-        {produtos.length == 0 && <div className='div-sem-produtos'>Nenhum produto localizado</div>}
-        {produtos && produtos.map(produto => <CardProduto produto={produto} key={produto.id}/>)} 
+    <div className='produtos-grid'>        
+        {produtos ? 
+          produtos.map(produto => <CardProduto produto={produto} key={produto.id}/>) :
+          <div className='div-sem-produtos'>Nenhum produto localizado</div>
+        } 
     </div>
     
   )

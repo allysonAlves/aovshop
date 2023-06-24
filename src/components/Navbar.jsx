@@ -6,13 +6,17 @@ import {FaShoppingCart} from "react-icons/fa"
 import {RiInstagramFill,RiTwitterFill, RiFacebookFill, RiYoutubeFill} from "react-icons/ri"
 import { useState } from "react"
 import Logo from '../assets/logo.png';
+import { OnSignOut } from '../Services/FirebaseAuthService'
+
+
 
 import Sidebar from './Sidebar'
 import './NavbarStyle.css'
 
-function Navbar({ShowSidebar}) {
+function Navbar({ShowSidebar,user, signOut, cart}) {
     const [search, setSearch] = useState("");
     const navigate = useNavigate();
+    const currentUser = user;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -59,14 +63,32 @@ function Navbar({ShowSidebar}) {
 
             </form>
 
-            <div className='div-btn-gologin orangehover'>
-                <Link to="/login" className='orangehover'>
-                    Fazer Login
-                </Link>
+            <div className='div-btn-gologin'>
+                {user?
+                        <div className='div-btn-account'>
+                           <div className='div-go-account'>
+                                <Link to={'/account'} style={{color:"#fff",fontSize:14}}>
+                                    <div style={{fontSize: 10, color: '#d46e29'}}>MINHA CONTA</div>                                
+                                    <div>
+                                        <div>Olá, 
+                                            {user.displayName}
+                                        </div> 
+                                    </div>                            
+                                </Link>
+                           </div>
+                            <div className='btn-sair'>
+                                <div onClick={() => signOut()}>[ sair ]</div>
+                            </div>                            
+                        </div>
+                    :                
+                    <Link to="/login" className='orangehover'>
+                        Fazer Login
+                    </Link>
+                }
             </div>
 
-            <Link className='cart-btn' to="/">
-                <div id='itens-carrinho'>3</div>
+            <Link className='cart-btn' to="/cart">
+                <div id='itens-carrinho'>{Object.keys(cart)?.length}</div>
                 <FaShoppingCart className='orangehover' id='icon-carrinho'/>
             </Link>
             
