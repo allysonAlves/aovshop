@@ -30,12 +30,16 @@ const Cart = () => {
         }
         return total;
     }
+
+    useEffect(() => {
+        console.log( 'testando no carrinho ===>>>>' , cart);
+    }, [cart])
     
   return (
     <div className='cart-page'>
         <div className='cart-content'>
             <h1>Carrinho</h1>
-            {Object.keys(cart).length ?
+            {Object.keys(cart)?
             <div className='product-item'>
             <ProdutoGrid produtos={Object.values(cart)}/>
             </div>:

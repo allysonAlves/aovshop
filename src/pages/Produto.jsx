@@ -1,7 +1,7 @@
 import React from 'react'
 import ProdutoGrid from '../components/ProdutoGrid'
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useOutletContext, useNavigate } from "react-router-dom";
 
 import { FaBarcode, FaShareAlt, FaAngleRight } from 'react-icons/fa'
 import { SiPix } from 'react-icons/si'
@@ -14,11 +14,12 @@ function Produto() {
 
   const produtosURL = import.meta.env.VITE_URL_PRODUTOS;
   const {id} = useParams()
- 
+  const { cart , setCart } = useOutletContext();
   const [produto, setProduto] = useState(null)
   const [produtosFiltrados, setProdutosfiltrados] = useState([])
   const [produtos, setProdutos] = useState([])
   const [showParcelas, setShowParcelas] = useState(false)
+  const navigate = useNavigate();
 
   
   
@@ -86,6 +87,19 @@ const share = async () =>
 
   }
 }
+
+  const addToCart = () => {
+    setCart(previous => {      
+      let amountInCart = cart[produto.id] ? cart[produto.id]?.amount + 1 : 1;
+      let productToCart = {...produto, amount: amountInCart};
+      //console.log("[ amount ==>>]", amountInCart," [product =>>]", productToCart)
+      return {...previous, [produto.id]: productToCart}
+    });
+
+    navigate('/cart')
+    
+  }
+
 
   return (
     <div className='produto-page'>
@@ -177,7 +191,14 @@ const share = async () =>
                   </div>
                 </div>
               </div>
-              <button className="button-comprar">COMPRAR</button>
+              {
+                Object.keys(cart).includes(produto.id.toString()) ?
+                <div className='div-in-cart'>
+                  <Link to='/cart'>VER NO CARRINHO</Link>
+                </div>
+                :
+                <button onClick={() => addToCart()} className="button-comprar">COMPRAR</button>
+              }
 
             </div>
           </div>
@@ -187,7 +208,7 @@ const share = async () =>
       {produto && 
         <div className='box-recentes'>
           {           
-            obterProdutosFiltrados().map(pd => <Link to={`/produto/${pd.id}`} className='recentes-item'> <img title={pd.descricao} className='imagem-recentes' src={pd.imagemProduto}/></Link>)
+            obterProdutosFiltrados().map(pd => <Link to={`/produto/${pd.id}`} key={pd.id} className='recentes-item'> <img title={pd.descricao} className='imagem-recentes' src={pd.imagemProduto}/></Link>)
           }
         </div>
       }

@@ -1,11 +1,14 @@
 .login-page{
-    padding-top: var(--topSpace);
-    display: flex;
-    justify-content: center;
-    flex-grow: 1;
-    flex-basis: auto;
-    background-color: #303030;
+    background-color: var(--secundaryColor);
     color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: var(--topSpace) 0 50px 0;
+    min-height: 70vh;
+    overflow-x: hidden; 
 }
 .login-page .login-limite{
     width: var(--contentSize);

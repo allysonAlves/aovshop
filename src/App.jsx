@@ -14,17 +14,8 @@ function App() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [showPopUp, setShowPopUp] = useState(false);
   const [user, setUser] = useState({});
-  const [cart, updateCart] = useState({});
+  const [cart, setCart] = useState({});
 
-  const setCart = (value) => {
-    updateCart(value);
-    if(Object.values(value).length < 1){
-      window.sessionStorage.removeItem('cart')
-      return;
-    }
-    window.sessionStorage.setItem('cart',JSON.stringify(cart));
-
-  }
 
   const ShowSidebar = () => {
     setShowSidebar(true);
@@ -47,8 +38,7 @@ function App() {
 
     if(window.sessionStorage.getItem('cart'))
     {
-      updateCart(JSON.parse(window.sessionStorage.getItem('cart')));
-      
+      setCart(JSON.parse(window.sessionStorage.getItem('cart')));      
     }  
   },[])
 
@@ -56,6 +46,7 @@ function App() {
     if(Object.values(cart).length > 0)
     {
       window.sessionStorage.setItem('cart',JSON.stringify(cart));
+      console.log(cart);
     }
   },[cart])
 

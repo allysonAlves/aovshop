@@ -7,7 +7,7 @@ const Cadastro = () => {
 
     const [password, setPassword] = useState(null);
     const navigate = useNavigate();
-    const context = useOutletContext();
+    const {user} = useOutletContext();
 
     async function Cadastrar(e){
         e.preventDefault();
@@ -25,12 +25,12 @@ const Cadastro = () => {
     }
 
     useEffect(()=>{
-        if(context)
+        if(user)
         {
             navigate('/account');
         }
 
-    },[context])
+    },[user])
 
   return (
     <div className='cadastro-page'>

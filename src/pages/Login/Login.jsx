@@ -4,14 +4,14 @@ import { OnLogin } from '../../Services/FirebaseAuthService.js'
 import './login.css'
 
 const Login = () => {
-    const outletContext = useOutletContext();
+    const {user} = useOutletContext();
     const navigate = useNavigate();
 
     useEffect(() =>{
-        if(outletContext){
+        if(user){
             navigate('/account');
         }
-    },[outletContext])
+    },[user])
 
     
     async function Login(e){

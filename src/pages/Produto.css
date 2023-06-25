@@ -78,14 +78,12 @@
 }
 
 .container-compra{
-    width: 95%;
+    width: 100%;
     background-color: #333333;
-    border-radius: 10px;
-    padding: 15px;
+    border-radius: 10px;   
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    
+    gap: 10px;    
 }
 
 .container-compra .box-desconto-share{
@@ -93,6 +91,7 @@
     justify-content: space-around;
     font-size: 18px;
     height: 40px;
+    margin: 10px;
 }
 
 .container-compra .box-desconto-share .box-share:hover{
@@ -119,16 +118,19 @@
     font-size: 23px;
     font-weight: normal;
     color: #EEEEEE;  
+    margin: 10px;
 }  
 
 .produto-disponivel{
     color: #009e2a;
+    margin: 10px;
 }
 
 .box-avista{
     display: flex;
     gap: 15px;
     margin-bottom: 15px;
+    margin: 10px;
 }
 
 .box-avista .box-icons{
@@ -170,6 +172,7 @@
 }
 .box-valor-parcelado{
     font-size: 13px;
+    margin: 10px;
     
 }
 
@@ -221,11 +224,35 @@
     color: #EEEEEE;
     border: none;
     transition: 0.2s ease-out;
+    font-size: 25px;
 }
 
 .button-comprar:hover{
     background-color: rgb(0, 95, 0);
     cursor: pointer;
+}
+
+.div-in-cart{
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    background-color: darkgreen;
+    color: #EEEEEE;
+    border: none;
+    transition: 0.2s ease-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-in-cart:hover{
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.div-in-cart a{
+    color: white;
+    font-size: 20px;
 }
 
 .box-recentes{
@@ -251,6 +278,11 @@
     background-color: white;
     max-width: 100%;
     max-height: 100%;
+}
+
+
+.classificacao{
+    margin: 10px;
 }
 
 @media screen and (max-width: 1274px) {
