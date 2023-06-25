@@ -1,15 +1,19 @@
 .account-page{
-    width: var(--contentSize);    
-    padding: var(--topSpace);
-    align-self: center;
-    flex-grow: 1;
-    display: flex;     
-    align-items: center;
+    background-color: var(--secundaryColor);
+    color: white;
+    display: flex;
     flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    padding: var(--topSpace) 0 50px 0;
+    min-height: 70vh;
+    overflow-x: hidden; 
 }
 
 .account-page .page-limit{
-    width: 60%;
+    width: var(--contentSize);
+    
 }
 
 .email-confirmation{
