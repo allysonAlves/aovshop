@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react'
 import { Link, useOutletContext, useNavigate } from 'react-router-dom';
-import { OnLogin } from '../../Services/FirebaseAuthService.js'
+import { FcGoogle } from 'react-icons/fc'
+import { FaFacebookSquare } from 'react-icons/fa'
+import { OnLogin, LoginWithGoogle, LoginWithFacebook } from '../../Services/FirebaseAuthService.js'
 import './login.css'
 
 const Login = () => {
@@ -8,7 +10,7 @@ const Login = () => {
     const navigate = useNavigate();
 
     useEffect(() =>{
-        if(user){
+        if(user?.uid){
             navigate('/account');
         }
     },[user])
@@ -37,6 +39,14 @@ const Login = () => {
                 <input name='email' type="email" id="input-email" placeholder='Email*' required/>
                 <input name='senha' type="password" id="input-senha" placeholder='Senha*' required/>
                 <input type='submit' id='button-login' value="ACESSAR CONTA"/> 
+                <div className='btns-logins'>
+                    <button onClick={() => LoginWithGoogle()}>
+                        <FcGoogle/>
+                    </button>
+                    {/* <button className='div-facebook' onClick={() => LoginWithFacebook()}>                        
+                        <FaFacebookSquare className='facebook-icon'/>
+                    </button> */}
+                </div>
                 <div className='criar-recuperar'>
                     <Link to="/singin" className="criar-conta">CRIAR CONTA</Link>
                     <span id="recuperar-senha">ESQUECEU A SENHA?</span>

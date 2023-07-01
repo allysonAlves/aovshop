@@ -2,20 +2,21 @@ import React from 'react'
 import ProdutoGrid from '../components/ProdutoGrid'
 import { useState, useEffect } from "react";
 import { useParams, Link, useOutletContext, useNavigate } from "react-router-dom";
-
 import { FaBarcode, FaShareAlt, FaAngleRight } from 'react-icons/fa'
 import { SiPix } from 'react-icons/si'
 import { RxChevronUp, RxChevronDown} from 'react-icons/rx'
 import{ BsCreditCard } from 'react-icons/bs'
 
 import './Produto.css'
+import { getProduct } from '../Services/ProductsFirestoreService';
+import AccordionDetails from '../components/Accordion/AccordionDetails';
 
 function Produto() {
 
   const produtosURL = import.meta.env.VITE_URL_PRODUTOS;
   const {id} = useParams()
   const { cart , setCart } = useOutletContext();
-  const [produto, setProduto] = useState(null)
+  const [product, setProduct] = useState(null)
   const [produtosFiltrados, setProdutosfiltrados] = useState([])
   const [produtos, setProdutos] = useState([])
   const [showParcelas, setShowParcelas] = useState(false)
@@ -24,31 +25,20 @@ function Produto() {
   
   
   function obterProdutosFiltrados(){
-    let filtrados = produtos.filter(f => f.id != produto.id);
+    let filtrados = produtos.filter(f => f.id != product.id);
     filtrados.sort(compareFn);
     return filtrados;
   }
 
-  useEffect(() =>{
-    const url_produtos = `${produtosURL}produtos.json`;
-    fetch(url_produtos).then(res => res.json()).then(json => { 
-        setProdutos(json); 
-                  
-     }); 
+  useEffect(() =>{    
+    getProduct(id).then(result => setProduct(result));
 }
-,[])
-
-useEffect(() =>{
-    setProduto(produtos[id]);
-    if(!produto) return;
-    document.title = produtos.length > 0 && produtos[id].descricao;
-
-},[produtos, id])
+,[id])
 
 function compareFn(a, b) {
   let aCompare = 0;
   let bCompare = 0;
-  for(const cat of produto.categoria)
+  for(const cat of product.categoria)
   {
     if(a.categoria.includes(cat)){ aCompare++ }
     if(b.categoria.includes(cat)){ bCompare++ }
@@ -70,7 +60,7 @@ const getParcelas = () => {
   let items = [];
   for(var i = 1; i <= 12; i++)
   {
-    items.push(<div className='parcela'> {i}x de {convert_moeda(produto.precoParcelado/i)} sem juros </div>)
+    items.push(<div className='parcela' key={i}> {i}x de {convert_moeda((product.price * (1 -(10/100)))/i)} sem juros </div>)
   }
   return items;
 }
@@ -78,7 +68,7 @@ const share = async () =>
 {
   try{
     await navigator.share({
-      title: produto.descricao,
+      title: product.descricao,
       text: '',
       url: location.href,
     });
@@ -90,10 +80,10 @@ const share = async () =>
 
   const addToCart = () => {
     setCart(previous => {      
-      let amountInCart = cart[produto.id] ? cart[produto.id]?.amount + 1 : 1;
-      let productToCart = {...produto, amount: amountInCart};
+      let amountInCart = cart[product.id] ? cart[product.id]?.amount + 1 : 1;
+      let productToCart = {...product, amount: amountInCart};
       //console.log("[ amount ==>>]", amountInCart," [product =>>]", productToCart)
-      return {...previous, [produto.id]: productToCart}
+      return {...previous, [product.id]: productToCart}
     });
 
     navigate('/cart')
@@ -106,45 +96,44 @@ const share = async () =>
       <div className='outdoor'>
         <img className='outdoor-img' src='https://img.terabyteshop.com.br/banner/2138.jpg'></img>
       </div>      
-      {produto &&
+      {product &&
         <div className='produto'>
           <div className="produto-destaque">
             <div className="container-imagem">
              
               <div className="box-imagem">
-                <img className='imagem-produto' src={produto.imagemProduto}/>
+                <img className='bg-image hover-zoom' src={product.images[0]}/>
               </div>
               <div className="menu-imagens">
-                <img className='imagem-option' src={produto.imagemProduto}/>
+                <img className='imagem-option' src={product.images[0]}/>
               </div>
             </div>
             <div className="container-compra">
               <div className="box-desconto-share">
                 <div className="box-desconto">
-                  <p>{Math.trunc( 100/(produto.precoAnterior/produto.precoAtual)-100)}% </p>
+                  <p>{product.sale}% </p>
                 </div>
                 <div className="box-desconto">
-                  <p>312</p>
+                  <p>{product.stock}</p>
                 </div>
                 <div className="box-share">
                   <FaShareAlt onClick={share}/>
                 </div>
               </div>
               <div className="classificacao">
-               {produto?.categoria &&
-                  <div className='div-links-categorias'>
-                  
-                    <Link to={`/categoria/${produto.categoria[0]}`} className='link-categoria'>{produto.categoria[0].toUpperCase()}</Link>
+               {product?.categoria &&
+                  <div className='div-links-categorias'>                  
+                    <Link to={`/categoria/${product.categoria}`} className='link-categoria'>{product.categoria.toUpperCase()}</Link>
                     <FaAngleRight/>  
-                    <Link to={`/categoria/${produto.categoria[0]}?sub=${produto.categoria[1]}`} className='link-categoria'>{produto.categoria[1].toUpperCase()}</Link>
+                    <Link to={`/categoria/${product.categoria}?sub=${product.subCategoria}`} className='link-categoria'>{product.subCategoria.toUpperCase()}</Link>
                     <FaAngleRight/>  
-                    <Link to={`/categoria/${produto.categoria[0]}?sub=${produto.categoria[1]}&m=${produto.categoria[2]}`} className='link-categoria'>{produto.categoria[2].toUpperCase()}</Link>
+                    <Link to={`/categoria/${product.categoria}?sub=${product.subCategoria}&m=${product?.datails?.Marca}`} className='link-categoria'>{product?.details?.Marca.toUpperCase()}</Link>
                   </div>
                 }
                                           
               </div>
               <div className="produto-titulo">
-                <h1>{produto.descricao}</h1>
+                <h1>{product.name}</h1>
               </div>
               <div className="marca-hating"></div>
               <div className="produto-disponivel">Produto Disponível</div>
@@ -154,8 +143,8 @@ const share = async () =>
                   <SiPix className='pix-icon'/>
                 </div>
                 <div className="box-valor">
-                  <p className='preco-total'>De: <s>{convert_moeda(produto.precoAnterior)}</s> por:</p>
-                  <p className='preco-avista'>{convert_moeda(produto.precoAtual)}</p>
+                  <p className='preco-total'>De: <s>{convert_moeda(product.price)}</s> por:</p>
+                  <p className='preco-avista'>{convert_moeda(product.price)}</p>
                   <p className='desconto-porcentagem'>à vista com 15% de desconto no boleto ou pix</p>
                 </div>
               </div>
@@ -166,13 +155,13 @@ const share = async () =>
                   </div>
                   <div>
                     <p className="valor-parcelado realce">
-                      {convert_moeda(produto.precoParcelado)}
+                      {convert_moeda(product.price)}
                     </p>
                     <p className="valor-da-parcela">
                       <span>em até </span>
                       <span className='realce'>12x</span>
                       <span> de </span>
-                      <span className="realce">{convert_moeda(produto.precoParcelado)}</span>
+                      <span className="realce">{convert_moeda(product.price)}</span>
                       <span> sem juros no cartão</span>
                     </p>
                     <div className="container-mais-parcelas">
@@ -192,7 +181,7 @@ const share = async () =>
                 </div>
               </div>
               {
-                Object.keys(cart).includes(produto.id.toString()) ?
+                Object.keys(cart).includes(product.id.toString()) ?
                 <div className='div-in-cart'>
                   <Link to='/cart'>VER NO CARRINHO</Link>
                 </div>
@@ -202,10 +191,12 @@ const share = async () =>
 
             </div>
           </div>
+          <AccordionDetails product={product}/>
+
           
         </div>
       }
-      {produto && 
+      {product && 
         <div className='box-recentes'>
           {           
             obterProdutosFiltrados().map(pd => <Link to={`/produto/${pd.id}`} key={pd.id} className='recentes-item'> <img title={pd.descricao} className='imagem-recentes' src={pd.imagemProduto}/></Link>)

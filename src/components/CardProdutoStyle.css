@@ -1,5 +1,5 @@
-.card{    
-    overflow: none; 
+.aov-card{    
+    overflow: hidden; 
     font-size: 13px;    
     display: flex;
     flex-direction: column;
@@ -8,25 +8,24 @@
 
 }
 
-.card .box-imagem{
+.aov-card .box-imagem{
     display: flex;
     width: 100%;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(248, 248, 248);
     opacity: 0.6;    
-    overflow: hidden; 
-    max-height: 60%; 
+    overflow: hidden;    
     
 }
 
-.card .box-imagem img{
+.aov-card .box-imagem img{
     max-width: 90%;
     max-height: 90%;
 }
 
-.card .box-imagem a{
+.aov-card .box-imagem a{
     width: 100%;
     height: 100%;
     display: flex;
@@ -34,22 +33,21 @@
     align-items: center;
 }
 
-.card .descricao{
+.aov-card .descricao{
     cursor: pointer;
     margin-bottom: 5px;
     height: 60px;
 }
 
-.card .informacoes-produto{
+.aov-card .informacoes-produto{
     padding: 5px;  
     display: flex;
     flex-direction: column;
-    gap: 2px;  
-    
 }
 
 .preco-anterior{
     color: gray;
+    margin-top: 15px;
 }
 .preco-atual{
     color: green;
@@ -61,27 +59,27 @@
     font-size: 15px;
 }
 
-.card:hover button{
-    display: block;
+.aov-card:hover button{
+    visibility: visible;
 }
 
-.card .btn-bottom{
+.aov-card .btn-bottom{
     border-radius: 0 0 5px 5px;
     height: 40px;
     width: 100%;
     color: white;
 }
 
-.card .btn-add{
+.aov-card .btn-add{
     background-color: green; 
     border: none;
     margin-top: 5px;
     font-size: 12px;    
-    display: none;
+    visibility: hidden;
     cursor: pointer;
 }
 
-.card .btn-onCart{    
+.aov-card .btn-onCart{    
     border-radius: 0 0 5px 5px;
     height: 40px;
     width: 100%;    
@@ -94,7 +92,7 @@
     align-items: center;
 }
 
-.card .btn-onCart button{
+.aov-card .btn-onCart button{
     border: none;
     width: 40px;
     height: 25px;
@@ -106,26 +104,26 @@
     justify-content: center;
     align-items: center;
 }
-.card .btn-onCart button:first-child{
+.aov-card .btn-onCart button:first-child{
     color: red;
 }
 
-.card .btn-onCart button:last-child{
+.aov-card .btn-onCart button:last-child{
     color: Green;
 }
 
-.card .btn-onCart button:hover{
+.aov-card .btn-onCart button:hover{
     cursor: pointer;
     opacity: 0.7;
 }
 
-.card button:hover{
+.aov-card button:hover{
     color: black;
 }
 
 @media screen and (max-width: 769px)
 {
-    .card .btn-add{
+    .aov-card .btn-add{
         display: block;
     }
 }

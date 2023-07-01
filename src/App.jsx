@@ -1,20 +1,22 @@
 import { useRef, useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import { Outlet } from 'react-router-dom'
-import Navbar from './components/Navbar'
+import { Outlet, useLocation} from 'react-router-dom'
+import Navbar from './components/Navbar/Navbar'
 import Footer from './components/Footer'
 import Sidebar from './components/Sidebar'
 import PopUpConfirmation from './components/PopUpConfirmation/PopUpConfirmation'
 
 import { OnAuth, OnSignOut} from './Services/FirebaseAuthService.js'
 import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import StartInformation from './components/Modal/StartInformation'
 
 function App() { 
-  const [showSidebar, setShowSidebar] = useState(false);
-  const [showPopUp, setShowPopUp] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false); 
   const [user, setUser] = useState({});
   const [cart, setCart] = useState({});
+  const { pathname } = useLocation();
 
 
   const ShowSidebar = () => {
@@ -24,14 +26,7 @@ function App() {
   {
     setShowSidebar(false);
   }
-  const signOut =() => {
-    setShowPopUp(true);
-  }
-
-  const canSignOut = () => {
-    OnSignOut();
-    setShowPopUp(false);
-  }
+ 
 
   useEffect(() =>{
     OnAuth(setUser);  
@@ -39,21 +34,25 @@ function App() {
     if(window.sessionStorage.getItem('cart'))
     {
       setCart(JSON.parse(window.sessionStorage.getItem('cart')));      
-    }  
+    } 
+    
   },[])
 
   useEffect(() => {
     if(Object.values(cart).length > 0)
     {
-      window.sessionStorage.setItem('cart',JSON.stringify(cart));
-      console.log(cart);
+      window.sessionStorage.setItem('cart',JSON.stringify(cart));      
     }
   },[cart])
 
+  useEffect(() => {
+    window.scrollTo(0,0);
+  },[pathname])
   
 
   return (
     <div className="App">       
+      <StartInformation/>
 
       {showSidebar && 
         <Sidebar user={user} 
@@ -61,19 +60,11 @@ function App() {
         signOut={() => signOut()}
         /> 
       }
-      
-      <PopUpConfirmation 
-        popUpTitle={'até breve'} 
-        showPopUp={showPopUp} 
-        OnConfirmed={function(){canSignOut()}} 
-        OnCanceled={() => setShowPopUp(false)}        
-        />
 
       <Navbar 
         ShowSidebar={ShowSidebar} 
         user={user}
-        cart={cart} 
-        signOut={() => signOut()} 
+        cart={cart}         
         />
 
       <Outlet context={{user,cart,setCart}} />            

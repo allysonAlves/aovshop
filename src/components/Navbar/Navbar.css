@@ -4,12 +4,13 @@
 
 .box-redes-sociais{
     height: 20px;
-    width: 63%;
+    width: var(--contentSize);
     color: #444444;
     display: flex;
-    align-items: center;   
+    align-items: center;
+    justify-content: end;
     gap: 10px;
-    margin-top: 10px;
+    margin-top: 5px;    
 }
 
 .box-redes-sociais a{
@@ -17,81 +18,39 @@
     align-items: center;    
 }
 
-.box-redes-sociais a:hover{
-    color: gray;
+.box-redes-sociais svg:hover{
+    color: var(--primaryOrange);
     cursor: pointer;
 }
 nav{
     width: 100%;
     position: fixed;
-    z-index: 1;
-    background-color: #222222;
+    z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-}
-#navbar .cart-btn{
-    align-self: center;
+    padding-bottom: 5px;
+    box-shadow: 1px 0 4px #353535;
 }
 
+#navbar{
+    padding: 10px 0 10px 0;
+}
 
 .logo img{
     width: 25px;
 }
 
-#navbar form {
-    display: flex;    
-    background-color: #333333;    
-    border-radius: 5px;
-    overflow: hidden;    
-    justify-content: space-between;
-    align-items: center;    
+.form-search{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40vw;    
 }
 
-#navbar input{
-    width: 90%;    
-    padding: 0.2rem 0.8rem;
-    border-radius: 4px;
-    border: none;
-    font-weight: bold;
-    font-size: 15px;
-    background-color: #333333;
-}
 
-#navbar input:focus{
-    border: none;
-    outline: none;
-}
-
-#navbar form button{
-    background-color: transparent;    
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-    margin-right: 15px;
-   
-}
-#navbar form button:hover{
-    background-color: transparent;
-    color: orangered;
-}
-a{
-    font-size: 30px;
-}
-a:link {
-    text-decoration: none;
-}
-
-a:visited {
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: none;
-}
-
-a:active {
+#navbar a:link {
     text-decoration: none;
 }
 
@@ -102,33 +61,20 @@ a:active {
 
 .orangehover:hover{
     color: rgb(253, 93, 34);
-    transition: 0.5s ease-in;
+    transition: 0.2s ease-in;
     cursor: pointer;
 }
 
-.cart-btn{
-    position: relative;
+.cart-btn{ 
+    position: relative;   
     color: white;
     width: 30px;
     font-weight: bold;
 }
-.cart-btn #itens-carrinho{
-    position: absolute;
-    background-color: #d46e29;
-    border-radius: 20px;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    top: -13px;
-    right: -10px;
-    z-index: 0;
-}
 
-.cart-btn #icon-carrinho{
-    z-index: 1;
+.cart-btn .cart-badge{
+    position: absolute; 
+    font-size: 12px;  
 }
 
 .div-btn-account{
@@ -174,24 +120,13 @@ a:active {
 
 @media screen and (min-width: 769px) {
     
-    #navbar{
-        margin: 0 0 5px 0;
-        width: var(--contentSize);
-        background-color: #222222;
+    #navbar{       
+        width: var(--contentSize);        
         display: flex;        
         align-items: center;
         justify-content: space-between;        
-    }
-
-    #navbar form{
-        max-height: 50px;
-        width: 60%;
-    }
-    #navbar form input{
-        background-color: transparent;
-        color: white;
-        height: 40px;
     }   
+    
 
     .logo{
         display: flex;
@@ -202,26 +137,24 @@ a:active {
         font-size: 19px;       
         font-weight: bold;   
     }  
+
+    #navbar .form-search button:hover{
+        color: var(--primaryOrange);
+    }
    
     #navbar .btn-menu-lateral{
         font-size: 30px;  
         color: white;        
         align-self: center; 
     }
-    .div-btn-gologin{    
-        
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+    
     .cart-btn{
         font-size: 22px;
     }
 }
 @media screen and (max-width: 1064px) {
-    #navbar form button, .div-btn-gologin{
-        display: none;
-        
+    .div-btn-gologin{
+        display: none;        
     }  
 }
 @media screen and (max-width: 768px) {
@@ -235,10 +168,9 @@ a:active {
         -ms-grid-row-align: center;
         padding: 5px;
         background-color: #222222;
+        gap: 5px;
     }
-    #navbar form{
-        height: 45px;
-    }
+    
     #navbar .btn-menu-lateral{
         font-size: 30px;  
         color: white; 
@@ -257,19 +189,12 @@ a:active {
         width: 20px;
         
     }
-    form{        
+    .form-search{        
         grid-row-start: 2;
         grid-column-start: 1;
-        grid-column-end: 6;     
-        
-    }
-    
-    #navbar form input{
-        background-color: transparent;
-        color: white;
+        grid-column-end: 6;        
+        width: 97vw;        
     }  
-    
-  
     #navbar .cart-btn{
         font-size: 22px;
         align-self: end;

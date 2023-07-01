@@ -3,24 +3,21 @@ import CardProduto from '../components/CardProduto'
 import { useState, useEffect } from "react";
 
 import './ProdutoGridStyle.css'
+import CardProduct from './CardProduct/CardProduct';
 
-const ProdutoGrid = ({categoria , sub, produtos}) => {
+const ProdutoGrid = ({produtos}) => {
   
   const [categorias, setCategorias] = useState([]);
   const [produtosFiltrados, setProdutosFiltrados] = useState([]);
 
   useEffect(() => {
-    setCategorias([categoria,sub]);
-  }, []);
-
-  useEffect(() => {
     
-  }, [categorias]);
+  }, []);
 
   return (
     <div className='produtos-grid'>        
         {produtos ? 
-          produtos.map(produto => <CardProduto produto={produto} key={produto.id}/>) :
+         Object.values(produtos).map(produto => <CardProduto produto={produto} key={produto?.id}/>) :
           <div className='div-sem-produtos'>Nenhum produto localizado</div>
         } 
     </div>

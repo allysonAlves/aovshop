@@ -1,0 +1,66 @@
+.card{
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;    
+    overflow: hidden;
+    border: none;
+    font-size: 16px;
+    color: white;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.cardBody{
+    display: flex;
+    flex-direction:column;
+    gap: 10px;
+    margin-top: 5px;
+    padding: 3px;
+}
+
+.imageDiv{
+    height: 200px;    
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;  
+    padding: 15px;  
+    border-radius: 5px;
+}
+
+.image{
+    object-fit: scale-down;
+}
+
+.card p{
+    margin: 0;
+    padding: 0;
+}
+
+.btnAddCart{
+    visibility: hidden;
+    background-color: #008000;
+    border: none;
+    margin: 0;    
+}
+
+.btnAddCart:hover{
+    background-color: #008000;
+    opacity: 0.7;
+    transition: 0.1s ease-out;
+}
+
+.card:hover .btnAddCart{
+    visibility: visible;
+}
+
+.card p:first-child, .card img{
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1063px){
+    .card button{
+        visibility: visible;
+    }
+
+}

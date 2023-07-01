@@ -1,8 +1,7 @@
 
 .main{
     margin-top: var(--topSpace);
-    background-color: #252525;
-    color: white;
+    background-color: #303030;    
     display: flex;
     flex-direction: column;
     justify-content: center;

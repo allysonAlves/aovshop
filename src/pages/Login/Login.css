@@ -70,6 +70,48 @@
     font-size: 15px;
 }
 
+.login-page .btns-logins{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    border-radius: 10px;       
+}
+
+.login-page .btns-logins button{
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    font-size: 25px;
+    background-color: var(--primaryColor);
+    box-shadow: 2px 2px 2px #111;
+    border: none;
+}
+
+.login-page .btns-logins .div-facebook{
+    font-size: 35px;
+    color: #4267B2;
+    background-color: var(--primaryColor);
+    box-shadow: 2px 2px 2px #111;
+    border: none;
+    overflow: hidden;
+}
+
+.login-page .btns-logins .facebook-icon{    
+    padding: 0;
+    margin: 0;
+    background-color: var(--primaryColor);
+}
+
+.login-page .btns-logins button:hover{
+    cursor: pointer;
+    opacity: 0.7;
+}
+
 .criar-conta:hover, #recuperar-senha:hover{
     opacity: 0.7;
     cursor: pointer;

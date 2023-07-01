@@ -1,5 +1,4 @@
-.account-page{
-    background-color: var(--secundaryColor);
+.account-page{    
     color: white;
     display: flex;
     flex-direction: column;
@@ -34,6 +33,24 @@
 
 .account-data{
     padding-top: 50px;
+}
+
+.account-data .div-imagem{
+    overflow: hidden;
+    border-radius: 15px;
+    height: 70px;    
+    border: 2px solid orangered;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 45px;
+    margin-bottom: 20px; 
+    aspect-ratio: 4/4;   
+}
+
+.account-data .div-imagem img{
+    width: 100%;
+    object-fit: cover;
 }
 
 .account-data h3{

@@ -1,34 +1,35 @@
 import React, {useEffect} from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
 import ProdutoGrid from '../../components/ProdutoGrid'
+import ProductCardOnCart from '../../components/productCardOnCart/productCardOnCart'
 import './Cart.css'
 
 const Cart = () => {
     const navigate = useNavigate();
     const {user,cart, setCart} = useOutletContext();
 
-    useEffect(() => {
-        if(!user)
-        {
-            navigate('/login');
-        }
-    },[])
-
+  
     const convert_moeda = (s) => s.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}); 
 
     const calculeCart = () => {
         let total = 0;
+
         for(let item of Object.values(cart)){
-            total += item.precoAtual * item.amount;
+            let itemPrice = item.price * (1-(item.sale/100));
+            total += itemPrice * item.amount;
         }
+
         return convert_moeda(total);
     }
-    const calculeParcela = () => {
-        let total = 0;
+    const calculeParcela = (x) => {
+       let total = 0;
+        
         for(let item of Object.values(cart)){
-            total += item.precoParcelado * item.amount;
+            let itemPrice = item.price * (1-(10/100));
+            total += itemPrice * item.amount;
         }
-        return total;
+
+        return convert_moeda(total/x);
     }
 
     useEffect(() => {
@@ -40,18 +41,21 @@ const Cart = () => {
         <div className='cart-content'>
             <h1>Carrinho</h1>
             {Object.keys(cart)?
-            <div className='product-item'>
-            <ProdutoGrid produtos={Object.values(cart)}/>
+            <div className='product-scroll'>
+                {/*<ProdutoGrid produtos={Object.values(cart)}/>*/}
+                {Object.values(cart).map((value) => <ProductCardOnCart key={value.id} className='product-item' produto={value}/>)}
             </div>:
             <>
             <p>carrihno vazio</p>
             </>
             }
-            <div className='box-total-cart'>
-              <p className='valor-vista'>TOTAL A VISTA {calculeCart()}</p> 
-              <p className='valor-parcela'>ou até 12x de {convert_moeda(calculeParcela()/12)} sem juros</p>               
+            <div className='div-btn-finalizar'>
+                <div className='box-total-cart'>
+                    <div className='valor-vista'>{calculeCart()} pix ou boleto</div> 
+                    <div className='valor-parcela'>ou em até 12x de {calculeParcela(12)} sem juros</div>               
+                </div>
+                <button className='btn-finalizar-compra'>FINALIZAR PEDIDO</button>
             </div>
-            <button className='btn-finalizar-compra'>FINALIZAR PEDIDO</button>
         </div>
     </div>
   )

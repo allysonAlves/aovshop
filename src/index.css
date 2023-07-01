@@ -23,11 +23,32 @@ html,body{
     --contentSize: 740px;
   }
   @media screen and (max-width: 780px) {
-    --contentSize: 90%;
+    --contentSize: 100%;
     --topSpace: 105px;
   }
   @media screen and (max-width: 480px){
     --sidebarSize: 280px;
+    --contentSize: 400px;
+  }
+
+  .bg-aov-dark-0{
+    background-color: var(--secundaryColor);
+  }
+  .bg-aov-dark-1{
+    background-color: var(--primaryColor);
+  }
+  .bg-aov-orange-0{
+    background-color: var(--primaryOrange);
+  }
+  .bg-aov-orange-1{
+    background-color: var(--secundaryOrange);
+  }
+  .text-aov-orange-0{
+    color: var(--primaryOrange);
+  }
+  .text-aov-orange-{
+    color: var(--secundaryColor);
   }
 
 }
+

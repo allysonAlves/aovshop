@@ -5,15 +5,15 @@ import App from './App.jsx'
 
 import Home from './pages/Home'
 import Produto from './pages/Produto'
-import Search from './pages/Search'
+import Search from "./pages/Search/Search.jsx"
 import Categoria from "./pages/Categoria"
 import Login from "./pages/Login/Login.jsx"
 import Cadastro from "./pages/Login/Cadastro.jsx"
 import Account from "./pages/account/Account.jsx"
 import Orders from "./pages/account/Orders.jsx"
+import Cart from "./pages/Cart/Cart.jsx"
 
 import './index.css'
-import Cart from "./pages/Cart/Cart.jsx"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

@@ -42,19 +42,19 @@ function CardProduto({produto}) {
   }
   
   return (
-    <div className='card' key={produto.id}>
+    <div className='aov-card' key={produto.id}>
         
-        <div className="box-imagem" title={produto.descricao}>
-        <Link to={`/produto/${produto.id}`}> <img src={produto.imagemProduto}/></Link>
+        <div className="box-imagem" title={/*produto.descricao*/ produto?.name}>
+        <Link to={`/produto/${produto.id}`}> <img src={produto?.images[0]}/></Link>
         </div>
         
         <div className='informacoes-produto'>
-            <p className="descricao" title={produto.descricao}>
-                {produto.descricao}
+            <p className="descricao" title={produto?.name}>
+                {produto?.name}
             </p>
-            <p className="preco-anterior"> De <s>{convert_moeda(produto.precoAnterior)}</s> por:</p>
-            <p className="preco-atual">{convert_moeda(produto.precoAtual)} à vista</p>
-            <p className="preco-parcelado">12x de {convert_moeda(produto.precoParcelado/12)} sem juros</p>
+            <div className="preco-anterior"> De <s>{convert_moeda(produto.price)}</s> por:</div>
+            <div className="preco-atual">{convert_moeda(produto.price * (1 - (produto.sale/100)))} à vista</div>
+            <div className="preco-parcelado">12x de { convert_moeda((produto.price * (1 - (10/100)))/12)} sem juros</div>
             {
               cart[produto.id] ?
               <div>
