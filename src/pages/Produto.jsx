@@ -1,5 +1,4 @@
 import React from 'react'
-import ProdutoGrid from '../components/ProdutoGrid'
 import { useState, useEffect } from "react";
 import { useParams, Link, useOutletContext, useNavigate } from "react-router-dom";
 import { FaBarcode, FaShareAlt, FaAngleRight } from 'react-icons/fa'
@@ -127,7 +126,7 @@ const share = async () =>
                     <FaAngleRight/>  
                     <Link to={`/categoria/${product.categoria}?sub=${product.subCategoria}`} className='link-categoria'>{product.subCategoria.toUpperCase()}</Link>
                     <FaAngleRight/>  
-                    <Link to={`/categoria/${product.categoria}?sub=${product.subCategoria}&m=${product?.datails?.Marca}`} className='link-categoria'>{product?.details?.Marca.toUpperCase()}</Link>
+                    <Link to={`/categoria/${product.categoria}?sub=${product.subCategoria}&m=${product?.datails?.Marca}`} className='link-categoria'>{product?.marca.toUpperCase()}</Link>
                   </div>
                 }
                                           

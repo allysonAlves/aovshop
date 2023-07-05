@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
-import ProdutoGrid from '../../components/ProdutoGrid'
 import ProductCardOnCart from '../../components/productCardOnCart/productCardOnCart'
 import './Cart.css'
 

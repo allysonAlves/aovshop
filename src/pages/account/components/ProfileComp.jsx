@@ -7,6 +7,7 @@ import ModalConfirm from "../../../components/Modal/ModalConfirm";
 import { OnSignOut } from "../../../Services/FirebaseAuthService";
 
 import { FaUser } from 'react-icons/fa'
+import ProfileLoader from "./ProfileLoader";
 
 const ProfileComp = ({ isLoading, user }) => {
     const [profileImage, setProfileImage] = useState(null);
@@ -19,40 +20,14 @@ const ProfileComp = ({ isLoading, user }) => {
     <>
       <div className="d-flex">
         {isLoading ? (
-          <Card style={{ width: "100%" }}>
-            <Card.Body>
-              <Placeholder
-                as={Card.Title}
-                animation="glow"
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <Placeholder xs={4} />
-                <Placeholder xs={3} />
-              </Placeholder>
-              <Card
-                style={{
-                  width: 80,
-                  height: 80,
-                  borderRadius: 15,
-                }}
-              ></Card>
-              <Placeholder style={{marginTop:10}} as={Card.Text} animation="glow">
-                <Placeholder xs={6} />
-                <Placeholder xs={7} />
-              </Placeholder>              
-            </Card.Body>
-          </Card>
+          <ProfileLoader width="30rem"/>
         ) : (
-          <Card style={{ width: "40rem" }}>
+          <Card style={{ width: "30rem" }}>
             <Card.Body>
               <Card.Title
                 style={{
                   display: "flex",
-                  justifyContent: "space-between",
+                  justifyContent:'space-between',
                   alignItems: "center",
                 }}
               >

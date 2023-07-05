@@ -14,7 +14,7 @@ html,body{
   --secundaryOrange: orangered;
   --primaryColor: #333;
   --secundaryColor:#222;
-  --topSpace: 82px;
+  --topSpace: 100px;
 
   @media screen and (max-width: 1274px) {
     --contentSize: 1044px;
@@ -24,7 +24,7 @@ html,body{
   }
   @media screen and (max-width: 780px) {
     --contentSize: 100%;
-    --topSpace: 105px;
+    --topSpace: 115px;
   }
   @media screen and (max-width: 480px){
     --sidebarSize: 280px;

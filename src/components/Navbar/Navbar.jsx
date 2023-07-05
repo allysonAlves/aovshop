@@ -1,21 +1,28 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Link, useNavigate } from "react-router-dom"
-import {BiCameraMovie, BiSearchAlt2} from "react-icons/bi"
+import {BiSearchAlt2} from "react-icons/bi"
+import {RiInstagramFill,RiTwitterFill, RiFacebookFill, RiYoutubeFill} from "react-icons/ri"
 import {RxHamburgerMenu} from "react-icons/rx"
 import {FaShoppingCart} from "react-icons/fa"
-import {RiInstagramFill,RiTwitterFill, RiFacebookFill, RiYoutubeFill} from "react-icons/ri"
-import { useState } from "react"
-import Logo from '../../assets/logo.png';
+//react /\ ----------------------------------------------------------------------------------
+//bootstrap \/-------------------------------------------------------------------------------
+import { Badge, Button, Form, InputGroup } from 'react-bootstrap'
+
+//services \/ -------------------------------------------------------------------------------
 import { OnSignOut } from '../../Services/FirebaseAuthService'
 
-
-
-import Sidebar from '../Sidebar'
-import './Navbar.css'
-import ModalConfirm from '../Modal/ModalConfirm'
-import { Badge, Button, Form, InputGroup } from 'react-bootstrap'
+//MyComponents \/ ---------------------------------------------------------------------------
 import ButtonMyAccount from './ButtonMyAccount'
 import SideBar from '../SideBar/SideBar'
+
+//assets -----------------------------------------------------------------------------------
+import Logo from '../../assets/logo.png';
+
+//styles -----------------------------------------------------------------------------------
+import styles from './Navbar.module.css'
+import './Navbar.css'
+
+
 
 function Navbar({ShowSidebar,user, cart}) {    
     const navigate = useNavigate();
@@ -31,24 +38,24 @@ function Navbar({ShowSidebar,user, cart}) {
   return (
     <nav className='bg-aov-dark-0'>
         
-        <div className='box-redes-sociais'>
-            <a><RiFacebookFill/></a>
-            <a><RiTwitterFill/></a>
-            <a><RiInstagramFill/></a>
-            <a><RiYoutubeFill/></a>            
+        <div className={styles.box_sociais}>
+            <a><RiFacebookFill size={22}/></a>
+            <a><RiTwitterFill size={22}/></a>
+            <a><RiInstagramFill size={22}/></a>
+            <a><RiYoutubeFill size={22}/></a>            
         </div>
         <div style={{width:'100%', height:0.1, backgroundColor:'#333', marginTop:5, marginBottom:5}}></div>
-        <div id="navbar">
+        <div className={styles.navbar}>
             <SideBar user={user}>
-                <RxHamburgerMenu className='btn-menu-lateral orangehover'/>
+                <RxHamburgerMenu size={28} className={styles.hamburger_btn}/>
             </SideBar>             
             
             
-            <Link className='logo' to="/">
+            <Link className={styles.logo} to="/">
                 <img src={Logo}/> Aov Shop
             </Link>
             
-            <form className='form-search' onSubmit={handleSubmit}>
+            <form className={styles.form_search} onSubmit={handleSubmit}>
                 <InputGroup>
                     <Form.Control
                         placeholder="pesquise o seu produto"
@@ -60,13 +67,16 @@ function Navbar({ShowSidebar,user, cart}) {
                     </Button>
                 </InputGroup>    
             </form>
-            <div className='div-btn-gologin'>
-                <ButtonMyAccount className='btn-go-login' user={user}/>
+            <div className={styles.div_account}>
+                <ButtonMyAccount user={user}/>
             </div>
            
-            <Link className='cart-btn orangehover' to="/cart">                
-                <FaShoppingCart size={25} id='icon-carrinho'/>
-                <Badge className='cart-badge' bg='danger'>
+            <Link className={styles.cart_btn} to="/cart">                
+                <FaShoppingCart size={25}/>
+                <Badge 
+                style={{top:-5, right:-15, fontSize:12}}
+                className='position-absolute' 
+                bg='danger'>
                     {
                         Object.keys(cart)?.length > 0 ? Object.keys(cart)?.length
                         :

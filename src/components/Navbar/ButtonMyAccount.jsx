@@ -12,7 +12,7 @@ const ButtonMyAccount = ({user}) => {
     <Dropdown as={ButtonGroup} size='sm'>
         {user ?
             <>
-                <Button onClick={() => navigate('/account')} variant="dark">Olá, {user.displayName}</Button>
+                <Button onClick={() => navigate('/account')} variant="dark"><span style={{color:'orange'}}>Olá,</span> {user.displayName}</Button>
                 <Dropdown.Toggle split variant="dark" id="dropdown-split-basic" />
 
                 <Dropdown.Menu>

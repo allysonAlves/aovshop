@@ -1,28 +1,35 @@
-import React from 'react'
-import './HomeStyle.css'
-import CardProduto from '../components/CardProduto'
-import ProdutoGrid from '../components/ProdutoGrid';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { searchProducts } from '../Services/ProductsFirestoreService';
+import Spinner from 'react-bootstrap/Spinner';
+
+import './HomeStyle.css'
+import ProductGrid from '../components/ProductGrid/ProductGrid';
+import CardProduct from '../components/CardProduct/CardProduct';
+
+
 
 
 
 function Home() {
 
-  const [produtos, setProdutos] = useState([])
+  const [maisVendidos, setMaisVendidos] = useState([])
   const [novidades, setNovidades] = useState([])
   const [produtosFiltrados, setProdutosfiltrados] = useState([]);
   const produtosURL = import.meta.env.VITE_URL_PRODUTOS;
-    
+  
+
     useEffect(() =>{
-      // const url_produtos = `${produtosURL}produtos.json`;
-      // fetch(url_produtos).then(res => res.json()).then(json => { 
-      //   setProdutos(json);
-      // }); 
-      searchProducts("mais-vendidos").then(result => setProdutos(result))
-      searchProducts("novidades").then(result => setNovidades(result))
+     
+      searchProducts("mais-vendidos").then(result =>{ 
+        
+        setMaisVendidos(result)
+      })
+      searchProducts("novidades").then(result => {
+        setNovidades(result)
+      })
     }
     ,[])
+    
     
     
 
@@ -44,19 +51,20 @@ function Home() {
         </div>
 
         <h3>MAIS VENDIDOS</h3>
-        <div className='mais-vendidos'>
-          <ProdutoGrid produtos={produtos}/>
+        <div className='mais-vendidos'>        
+          <ProductGrid>
+            {Object.values(maisVendidos).map(product => <CardProduct product={product} key={product?.id}/>) }
+          </ProductGrid>
         </div>
 
         <img src='https://img.terabyteshop.com.br/banner/2303.jpg'/>
         <h3>NOVIDADES</h3>
-        <div className='mais-vendidos'>
-          <ProdutoGrid produtos={novidades}/>
+        <div className='mais-vendidos'>       
+          <ProductGrid>
+            {Object.values(novidades).map(product => <CardProduct product={product} key={product?.id}/>) }
+          </ProductGrid>
         </div>
       </div>
-     
-     
-    
     </div>
     
   )

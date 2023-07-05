@@ -82,7 +82,45 @@ const FirebaseService = class {
             querySnapshot.forEach((doc) => {
                 const docData = doc.data();
                 docs[doc.id] = docData;
-                console.log(doc.id, " => ", doc.data());
+                
+            });
+
+            return docs;
+        }catch(err)
+        {
+            console.log('erro')
+            return err;
+        }
+    } 
+
+    async searchMulti(query1 = {path: 'categoria', filter:'==',value}, query2, query3){
+        try{
+            const itemRef = collection(firestore, this.collection)
+            let q = '';
+
+            if(query3?.value){
+
+                q = query(itemRef, where(query1?.path, query1?.filter, query1?.value) , where(query2.path, query2.filter, query2.value),  where(query3.path, query3.filter, query3.value));
+                
+            }else if(query2?.value)
+            {
+                q = query(itemRef, where(query1?.path, query1?.filter, query1?.value) , where(query2.path, query2.filter, query2.value));
+               
+            } else {
+                
+                q = query(itemRef, where(query1?.path, query1?.filter, query1?.value));
+            }   
+            
+           
+            const querySnapshot = await getDocs(q); 
+
+            
+            let docs = {}
+    
+            querySnapshot.forEach((doc) => {
+                const docData = doc.data();
+                docs[doc.id] = docData;
+
             });
 
             return docs;
@@ -91,7 +129,6 @@ const FirebaseService = class {
             return err;
         }
     }
-
 
 }
 

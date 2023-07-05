@@ -13,6 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./SideBar.css";
 import ModalConfirm from "../Modal/ModalConfirm";
 import { OnSignOut } from "../../Services/FirebaseAuthService";
+import CategoryAccordion from "./components/CategoryAccordion";
 
 const SideBar = ({ children, user }) => {
     const navigate = useNavigate();
@@ -95,6 +96,7 @@ const SideBar = ({ children, user }) => {
               </>
             )}
           </div>
+          <CategoryAccordion closeSideBar={handleClose}/>
         </Offcanvas.Body>
       </Offcanvas>
     </>

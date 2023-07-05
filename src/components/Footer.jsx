@@ -4,7 +4,7 @@ import './FooterStyle.css'
 
 const Footer = () => {
   return (
-    <div className='footer'>
+    <footer className='footer'>
         <div className='footerSubMenu'>
             <div>
                 <h5>INSTITUCIONAL</h5>
@@ -46,7 +46,7 @@ const Footer = () => {
         <div className='footerEnterprise'>
 
         </div>
-    </div>
+    </footer>
   )
 }
 

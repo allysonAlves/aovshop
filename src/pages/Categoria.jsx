@@ -1,58 +1,67 @@
 import React from 'react'
 import { useParams, useSearchParams } from "react-router-dom";
 import './Categoria.css'
-import ProdutoGrid from '../components/ProdutoGrid';
 import { useEffect, useState } from 'react';
 import { FaAngleRight } from 'react-icons/fa' 
 import { Link } from 'react-router-dom';
+import { searchProducts, searchProductsCategory} from '../Services/ProductsFirestoreService';
+import { SearchProducts } from '../Services/ProductsService';
+import ProductGrid from '../components/ProductGrid/ProductGrid';
+import CardProduct from '../components/CardProduct/CardProduct';
 
 
 const Categoria = () => {
     const produtosURL = import.meta.env.VITE_URL_PRODUTOS;
-    const {id} = useParams()
+    const {id : category} = useParams()
     const [seachParams] = useSearchParams();
-    const query = seachParams.get("sub");
+    const querySub = seachParams.get("sub");
     const queryMarca = seachParams.get("m");
-    const [produtos, setProdutos] = useState([])
-    const [produtosFiltrados, setProdutosfiltrados] = useState([]);
+    const [products, setProducts] = useState([])
+    const [noResults, setNoResults] = useState(false);
 
     
-    useEffect(() =>{
-        const url_produtos = `${produtosURL}produtos.json`;
-        fetch(url_produtos).then(res => res.json()).then(json => { 
-            setProdutos(json); 
-                      
-         }); 
+    useEffect(() =>{       
+       searchProductsCategory(category,querySub,queryMarca).then(res => { if(Object.values(res).length > 0){ setProducts(res); setNoResults(false)}else{setNoResults(true)} })
     }
-    ,[])
-
-    useEffect(() =>{
-        const sec = produtos.filter(produto => query? [id,query].every(categoria => produto.categoria.includes(categoria)): produto.categoria.includes(id));
-
-        const final = queryMarca && sec? 
-            sec.filter(produto => produto.categoria.includes(queryMarca)) :
-            [];
-
-         setProdutosfiltrados(sec);
-    },[produtos,query,id,queryMarca])
+    ,[category,querySub,queryMarca])   
  
   return (
     <div className='categoria'>        
         <div className="categoria-limite">
-        <img src='https://img.terabyteshop.com.br/banner/1922.jpg' className='out'></img>
+            <img src='https://img.terabyteshop.com.br/banner/1922.jpg' className='out'></img>
             <div className='menu-filters-options'>
-               <div className='div-links-categorias'>
-                    <Link to={`/categoria/${id}`} className='link-categoria'>{id.toUpperCase()}</Link>
-                    <FaAngleRight/>
-                    { query && <Link to={`/categoria/${id}?sub=${query}`} className='link-categoria'>{query.toUpperCase()}</Link> }
+                <div className='div-links-categorias'>
+                    <Link to={`/categoria/${category}`} className='link-categoria'>{category.toUpperCase()}</Link>
+                    
+                    { querySub && 
+                        <>
+                        <FaAngleRight/>
+                        <Link to={`/categoria/${category}?sub=${querySub}`} className='link-categoria'>{querySub.toUpperCase()}</Link>                        
+                        </>
+                    }
+
+                    { queryMarca && 
+                        <>
+                        <FaAngleRight/>
+                        <Link to={`/categoria/${category}?sub=${querySub}&m=${queryMarca}`} className='link-categoria'>{queryMarca.toUpperCase()}</Link>                        
+                        </>
+                    }
+
                 </div>
-               {/* {// <select>
+                {/* { <select>
                     <option value="select" selected>Ordenar por</option>
                     <option value="menor-valor">Menor valor</option>
                     <option value="maior-valor">Maior valor</option>
                 </select>} */}
-            </div>            
-            <ProdutoGrid categoria={id} sub={query} produtos={produtosFiltrados}/>
+            </div>
+            {!noResults?
+                <ProductGrid>
+                    {Object.values(products).map(product => <CardProduct product={product} key={product?.id}/>) }
+                </ProductGrid> :
+                <div style={{width:'100%', textAlign:'center'}}>
+                Nenhum produto encontrado
+               </div>            
+            }            
         </div>
     
     </div>

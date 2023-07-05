@@ -31,9 +31,20 @@ function AccordionDetails({product = {}}) {
       <Accordion.Item eventKey="1">
         <Accordion.Header>Especificações Técnicas</Accordion.Header>
         <Accordion.Body>
-            {product?.details &&
-                keyvalue(product?.details)
-            }           
+          
+          {product?.details &&
+            <dl>
+            {Object.entries(product?.details).map(([key,value]) => {
+                return (<>
+                  <dt>{key}</dt>
+                  <dd>{<div dangerouslySetInnerHTML={{__html: value}} />}</dd>
+                </>)
+            })}
+            </dl>
+          }
+            {/* {product?.details &&
+               <div>{product?.details.map(value => <div dangerouslySetInnerHTML={{__html: value}} />)}</div> 
+            }            */}
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="2">

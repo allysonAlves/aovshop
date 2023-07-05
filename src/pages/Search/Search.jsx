@@ -3,9 +3,11 @@ import { useSearchParams, useOutletContext } from 'react-router-dom'
 import { GetAllProducts } from '../../Services/ProductsService';
 import { searchProducts, getProduct } from '../../Services/ProductsFirestoreService';
 import { getUser } from '../../Services/UserFirestoreService';
-import ProdutoGrid from '../../components/ProdutoGrid';
+
 
 import './Search.css'
+import ProductGrid from '../../components/ProductGrid/ProductGrid';
+import CardProduct from '../../components/CardProduct/CardProduct';
 
 function Search() {
 
@@ -13,25 +15,27 @@ function Search() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q');
   const [products, setProducts] = useState([]);
+  const [noResults, setNoResults] = useState(false);
 
-  const searchProduct = () =>{
-
-  }
-  
-  // const getProducts = async () => {
-  //   const products = await GetAllProducts();
-  //   console.log('SEARCH =>>',products);
-  // }
+ 
 
   useEffect(() => {
-    searchProducts(query).then(value => { setProducts(value)}).catch(err => console.log("teve erro"));
+    searchProducts(query).then(value => { setProducts(value);  setNoResults(Object.keys(value).length < 1) }).catch(err => console.log("teve erro"));
   },[query])
   
 //getProducts()
   return (
     <div className='search-page'>
       <div className="page-limit">
-        <ProdutoGrid produtos={products}/>
+        {
+          !noResults ?
+            <ProductGrid>
+              {Object.values(products).map(product => <CardProduct product={product} key={product?.id}/>) }            
+            </ProductGrid>:
+            <div style={{width:'100%', textAlign:'center'}}>
+             Nenhum produto encontrado
+            </div>
+        }
       </div>
     </div>
   )

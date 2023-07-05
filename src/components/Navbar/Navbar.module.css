@@ -2,7 +2,7 @@
     opacity: 0.7;
 }
 
-.box-redes-sociais{
+.box_sociais{
     height: 20px;
     width: var(--contentSize);
     color: #444444;
@@ -13,12 +13,7 @@
     margin-top: 5px;    
 }
 
-.box-redes-sociais a{
-    font-size: 22px;
-    align-items: center;    
-}
-
-.box-redes-sociais svg:hover{
+.box_sociais svg:hover{
     color: var(--primaryOrange);
     cursor: pointer;
 }
@@ -38,81 +33,38 @@ nav{
     padding: 10px 0 10px 0;
 }
 
+.logo{
+    text-decoration: none;
+}
+
 .logo img{
     width: 25px;
 }
 
-.form-search{
+.hamburger_btn:hover{
+    color: var(--primaryOrange);
+    cursor: pointer;
+}
+
+.form_search{
     display: flex;
     justify-content: center;
     align-items: center;
     width: 40vw;    
 }
 
-
-#navbar a:link {
-    text-decoration: none;
-}
-
-.div-btn-gologin a{
-    font-size: 17px;
-    color: white;
-}
-
-.orangehover:hover{
-    color: rgb(253, 93, 34);
-    transition: 0.2s ease-in;
-    cursor: pointer;
-}
-
-.cart-btn{ 
+.cart_btn{ 
     position: relative;   
     color: white;
     width: 30px;
     font-weight: bold;
 }
 
-.cart-btn .cart-badge{
+.cart_btn .cart_badge{
     position: absolute; 
     font-size: 12px;  
 }
 
-.div-btn-account{
-    border: 2px solid #333333;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    height: 40px;
-    padding: 0.2rem;
-}
-.div-btn-account:hover{
-    cursor: pointer;
-}
-
-.div-btn-account .div-go-account{
-    display: flex;
-    flex-direction: column-reverse;
-}
-
-.div-btn-account .div-go-account a{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    flex: 1;
-}
-
-.div-btn-account .div-go-account:hover{
-    opacity: 0.7;
-}
-
-.div-btn-account .btn-sair{    
-    display: flex;
-    color: #acacac;
-    align-items: end;
-    flex: 1;
-    font-size: 11px;    
-}
 
 .div-btn-account .btn-sair:hover{
     color: red;
@@ -120,13 +72,12 @@ nav{
 
 @media screen and (min-width: 769px) {
     
-    #navbar{       
+    .navbar{       
         width: var(--contentSize);        
         display: flex;        
         align-items: center;
         justify-content: space-between;        
-    }   
-    
+    } 
 
     .logo{
         display: flex;
@@ -138,28 +89,26 @@ nav{
         font-weight: bold;   
     }  
 
-    #navbar .form-search button:hover{
+    .navbar .form_search button:hover{
         color: var(--primaryOrange);
     }
    
-    #navbar .btn-menu-lateral{
+    .navbar .btn-menu-lateral{
         font-size: 30px;  
         color: white;        
         align-self: center; 
     }
     
-    .cart-btn{
+    .cart_btn{
         font-size: 22px;
     }
 }
 @media screen and (max-width: 1064px) {
-    .div-btn-gologin{
-        display: none;        
-    }  
+    
 }
 @media screen and (max-width: 768px) {
     
-    #navbar{ 
+    .navbar{ 
         width: 100%;       
         margin-top: 15px;        
         display: grid;       
@@ -169,14 +118,9 @@ nav{
         padding: 5px;
         background-color: #222222;
         gap: 5px;
-    }
-    
-    #navbar .btn-menu-lateral{
-        font-size: 30px;  
-        color: white; 
-        width: 100%;  
-    }
-    #navbar .logo{
+    }    
+   
+    .navbar .logo{
         color: white;
         font-size: 19px;       
         grid-column-start: 3;
@@ -185,26 +129,32 @@ nav{
         grid-column-start: 2;
         grid-column-end: 5;
     } 
-    #navbar .logo img{
+    .navbar .logo img{
         width: 20px;
         
     }
-    .form-search{        
+    .form_search{        
         grid-row-start: 2;
         grid-column-start: 1;
         grid-column-end: 6;        
         width: 97vw;        
     }  
-    #navbar .cart-btn{
+
+    .div_account{
+        display: none;
+    }
+
+    .navbar .cart_btn{
         font-size: 22px;
         align-self: end;
         justify-self: center;
         text-align: center;
         grid-column-start: 5;
         grid-row-start: 1;
+        position: relative;
     }
 
-    .box-redes-sociais{
+    .box_sociais{
         display: none;
     }
 }
