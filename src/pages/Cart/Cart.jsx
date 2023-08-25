@@ -1,11 +1,13 @@
-import React, {useEffect} from 'react'
+import React, {useContext, useEffect} from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
 import ProductCardOnCart from '../../components/productCardOnCart/productCardOnCart'
 import './Cart.css'
+import { CartContext } from '../../commom/context/CartProvider'
 
 const Cart = () => {
     const navigate = useNavigate();
-    const {user,cart, setCart} = useOutletContext();
+    //const {user,cart, setCart} = useOutletContext();
+    const {cart, addProduct, removeProduct} = useContext(CartContext);
 
   
     const convert_moeda = (s) => s.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}); 
@@ -42,7 +44,7 @@ const Cart = () => {
             {Object.keys(cart)?
             <div className='product-scroll'>
                 {/*<ProdutoGrid produtos={Object.values(cart)}/>*/}
-                {Object.values(cart).map((value) => <ProductCardOnCart key={value.id} className='product-item' produto={value}/>)}
+                {Object.values(cart).map((value) => <ProductCardOnCart key={value.id} className='product-item' product={value}/>)}
             </div>:
             <>
             <p>carrihno vazio</p>

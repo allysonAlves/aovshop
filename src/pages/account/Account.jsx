@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react'
+import React,{useContext, useEffect, useState} from 'react'
 import { useOutletContext,useNavigate, Link} from 'react-router-dom'
 import {Button , DropdownButton , Dropdown, InputGroup, SplitButton , Form}from 'react-bootstrap';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -9,9 +9,11 @@ import ModalConfirm from '../../components/Modal/ModalConfirm';
 import { OnSignOut } from '../../Services/FirebaseAuthService';
 import ProfileLoader from './components/ProfileLoader';
 import ProfileComp from './components/ProfileComp';
+import { AuthContext } from '../../commom/context/AuthProvider';
 const Account = () => {
 
-  const {user} = useOutletContext();
+  //const {user} = useOutletContext();
+  const {user} = useContext(AuthContext);
   const navigate = useNavigate();
   const [showPopUp, setShowPopUp] = useState();
   const [load, setLoad] = useState(true);

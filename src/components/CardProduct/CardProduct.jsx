@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useOutletContext, useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import Placeholder from "react-bootstrap/Placeholder";
-
-
-import { addToCart, removeCart } from "../../Services/CartService";
-
 import styles from "./styles.module.css";
 import { ButtonGroup } from "react-bootstrap";
 import { IoMdAdd, IoMdRemove } from "react-icons/io";
+import { CartContext } from "../../commom/context/CartProvider";
 
 const CardProduct = ({ product }) => {
   const navigate = useNavigate();
-  const {setCart, cart} = useOutletContext();
+  
+  const {cart , addProduct, removeProduct} = useContext(CartContext);
+
   return (
     <div>      
         <>
@@ -55,7 +53,7 @@ const CardProduct = ({ product }) => {
                  cart[product.id] ?
                 <ButtonGroup aria-label="Basic example">
                   <Button
-                  onClick={() => removeCart({setCart,cart, produto: product})} 
+                  onClick={() => removeProduct(product.id)} 
                   variant="dark">
                     <IoMdRemove color="red"/>
                   </Button>
@@ -63,7 +61,7 @@ const CardProduct = ({ product }) => {
                   <Button variant="dark">{cart[product.id].amount}</Button>
 
                   <Button 
-                  onClick={() => addToCart({setCart,cart, produto: product})}
+                  onClick={() => addProduct(product)}
                   variant="dark">
                       <IoMdAdd color='green'/>
                   </Button>
@@ -71,9 +69,7 @@ const CardProduct = ({ product }) => {
                 :
                 <Button                
                 className={styles.btnAddCart} 
-                onClick={() => 
-                  addToCart({setCart,cart, produto: product})
-                } 
+                onClick={() => addProduct(product)}                 
                 variant="sucess">
                   Adicionar ao Carrinho
                 </Button>

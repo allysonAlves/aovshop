@@ -11,10 +11,7 @@ import ProfileLoader from "./ProfileLoader";
 
 const ProfileComp = ({ isLoading, user }) => {
     const [profileImage, setProfileImage] = useState(null);
-
-    useEffect(()=>{
-        setProfileImage(!profileImage)
-    },[user])
+   
 
   return (
     <>
