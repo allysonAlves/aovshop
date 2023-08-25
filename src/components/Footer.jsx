@@ -9,11 +9,11 @@ const Footer = () => {
             <div>
                 <h5>INSTITUCIONAL</h5>
                 <ul>
-                    <ol>Quem Somos</ol>
-                    <ol>Termos e Condições de Venda</ol>
-                    <ol>Política de Troca e Devoluções</ol>
-                    <ol>Nossa Lojas</ol>
-                    <ol>Localização</ol>
+                    <li>Quem Somos</li>
+                    <li>Termos e Condições de Venda</li>
+                    <li>Política de Troca e Devoluções</li>
+                    <li>Nossa Lojas</li>
+                    <li>Localização</li>
                 </ul>
             </div>
             <div>

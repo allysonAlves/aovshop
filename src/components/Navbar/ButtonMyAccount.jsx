@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {Button , ButtonGroup , Dropdown, DropdownButton } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { OnSignOut } from '../../Services/FirebaseAuthService';
 import ModalConfirm from '../Modal/ModalConfirm';
+import { AuthContext } from '../../commom/context/AuthProvider';
 
 
 
-const ButtonMyAccount = ({user}) => {
+const ButtonMyAccount = () => {
+    const {user} = useContext(AuthContext);
     const navigate = useNavigate();
   return (
     <Dropdown as={ButtonGroup} size='sm'>

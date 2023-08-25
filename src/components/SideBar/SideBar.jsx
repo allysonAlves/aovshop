@@ -1,5 +1,5 @@
-import React ,{ useState } from "react";
-import Button from "react-bootstrap/Button";
+import React, { useContext, useState } from "react";
+
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { MdEditNote } from "react-icons/md";
 import {
@@ -8,21 +8,20 @@ import {
   RiLoginCircleLine,
   RiLogoutCircleLine,
 } from "react-icons/ri";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./SideBar.css";
 import ModalConfirm from "../Modal/ModalConfirm";
 import { OnSignOut } from "../../Services/FirebaseAuthService";
 import CategoryAccordion from "./components/CategoryAccordion";
+import { AuthContext } from "../../commom/context/AuthProvider";
 
-const SideBar = ({ children, user }) => {
-    const navigate = useNavigate();
+const SideBar = ({ children }) => {
+  const { user } = useContext(AuthContext);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-
 
   return (
     <>
@@ -36,29 +35,20 @@ const SideBar = ({ children, user }) => {
           <div className="user-nav-btns">
             {user ? (
               <>
-                <Link 
-                to='/account'
-                onClick={handleClose}
-                >
+                <Link to="/account" onClick={handleClose}>
                   <div className="nav-btn-icon">
                     <RiAccountBoxFill />
                   </div>
                   <div className="nav-btn-text">Minha Conta</div>
                 </Link>
-                <Link
-                to='/orders'
-                onClick={handleClose}
-                >
+                <Link to="/orders" onClick={handleClose}>
                   <div className="nav-btn-icon">
                     <MdEditNote />
                   </div>
                   <div className="nav-btn-text">Pedidos</div>
                 </Link>
 
-                <Link
-                    to='/cupons'
-                    onClick={handleClose}
-                >
+                <Link to="/cupons" onClick={handleClose}>
                   <div className="nav-btn-icon">
                     <RiCoupon3Fill />
                   </div>
@@ -84,19 +74,16 @@ const SideBar = ({ children, user }) => {
               </>
             ) : (
               <>
-                <Link
-                    to='/login'
-                    onClick={handleClose}
-                >
+                <Link to="/login" onClick={handleClose}>
                   <div className="nav-btn-icon">
-                    <RiLoginCircleLine/>
+                    <RiLoginCircleLine />
                   </div>
                   <div className="nav-btn-text">Acessar Conta</div>
                 </Link>
               </>
             )}
           </div>
-          <CategoryAccordion closeSideBar={handleClose}/>
+          <CategoryAccordion closeSideBar={handleClose} />
         </Offcanvas.Body>
       </Offcanvas>
     </>
