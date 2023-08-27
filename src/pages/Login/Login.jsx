@@ -1,8 +1,7 @@
 import React, {useContext, useEffect} from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc'
-import { FaFacebookSquare } from 'react-icons/fa'
-import { OnLogin, LoginWithGoogle, LoginWithFacebook } from '../../Services/FirebaseAuthService.js'
+import { OnLogin, LoginWithGoogle } from '../../Services/FirebaseAuthService.js'
 
 import { AuthContext } from '../../commom/context/AuthProvider.jsx';
 import './login.css'
@@ -10,11 +9,12 @@ import './login.css'
 const Login = () => {
     const {user} = useContext(AuthContext);
     const navigate = useNavigate();
+    const { state } = useLocation();
 
 
     useEffect(() => {
         if(user){
-            navigate('/account');
+            navigate(state?.redirect ? state.redirect : '/account');
         }
     },[user]);
     

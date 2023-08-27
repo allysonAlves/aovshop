@@ -1,0 +1,44 @@
+.page{
+    margin-top: var(--topSpace);
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+}
+
+.page_content{
+    position: relative;
+    width: var(--contentSize);
+    display: flex;   
+    justify-content: center;   
+}
+
+.form{
+    margin-top: 50px;
+    width: 400px;
+    position: relative;
+}
+
+.btn_delete_account{
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+}
+
+.btn_delete_account:hover{
+    color: orange;
+}
+
+.btn_return{
+   color: white;
+   font-weight: bold;
+   font-size: 25px;
+   height: 40px;
+   margin-top: 10px;
+   position: absolute;
+   left: 0;
+}
+.btn_return:hover{
+    color: orange;
+    cursor: pointer;
+}
