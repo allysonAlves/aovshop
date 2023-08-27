@@ -32,31 +32,27 @@ const Cart = () => {
 
         return convert_moeda(total/x);
     }
-
-    useEffect(() => {
-        console.log( 'testando no carrinho ===>>>>' , cart);
-    }, [cart])
     
   return (
     <div className='cart-page'>
-        <div className='cart-content'>
-            <h1>Carrinho</h1>
-            {Object.keys(cart)?
-            <div className='product-scroll'>
-                {/*<ProdutoGrid produtos={Object.values(cart)}/>*/}
-                {Object.values(cart).map((value) => <ProductCardOnCart key={value.id} className='product-item' product={value}/>)}
-            </div>:
-            <>
-            <p>carrihno vazio</p>
-            </>
+        <div className='cart-content'>            
+            {Object.keys(cart). length > 0?
+                (<>
+                    <div className='product-scroll'>
+                        {/*<ProdutoGrid produtos={Object.values(cart)}/>*/}
+                        {Object.values(cart).map((value) => <ProductCardOnCart key={value.id} className='product-item' product={value}/>)}
+                    </div>
+                    <div className='div-btn-finalizar'>
+                        <div className='box-total-cart'>
+                            <div className='valor-vista'>{calculeCart()} pix ou boleto</div> 
+                            <div className='valor-parcela'>ou em até 12x de {calculeParcela(12)} sem juros</div>               
+                        </div>
+                        <button className='btn-finalizar-compra'>FINALIZAR PEDIDO</button>
+                    </div>           
+                </>):(<>
+                <p>carrihno vazio</p>
+                </>)
             }
-            <div className='div-btn-finalizar'>
-                <div className='box-total-cart'>
-                    <div className='valor-vista'>{calculeCart()} pix ou boleto</div> 
-                    <div className='valor-parcela'>ou em até 12x de {calculeParcela(12)} sem juros</div>               
-                </div>
-                <button className='btn-finalizar-compra'>FINALIZAR PEDIDO</button>
-            </div>
         </div>
     </div>
   )

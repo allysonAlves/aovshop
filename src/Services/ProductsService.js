@@ -33,7 +33,7 @@ const GetProduct = async (id) =>{
 
 const GetSessionProducts = async () => {
     const response = window.sessionStorage.getItem('products')
-    console.log('SESSIONDATA ==>>')
+    
     const products = JSON.parse(response);
     if(Object.values(products ?? {})[0])
     {
@@ -55,7 +55,7 @@ const fetchProducts = async () => {
 
         window.sessionStorage.setItem('lastGetData',Date.now() + 600000)
         window.sessionStorage.setItem('products', JSON.stringify(result))
-        console.log('FECHDATA ==>>')
+        
         return result;
     }else
     {

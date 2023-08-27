@@ -12,6 +12,9 @@
 
 .account-page .page-limit{
     width: var(--contentSize);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     
 }
 
@@ -32,7 +35,7 @@
 }
 
 .account-data{
-    padding-top: 50px;
+    padding-top: 30px;
 }
 
 .account-data .div-imagem{

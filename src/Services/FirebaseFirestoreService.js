@@ -87,8 +87,7 @@ const FirebaseService = class {
 
             return docs;
         }catch(err)
-        {
-            console.log('erro')
+        {            
             return err;
         }
     } 

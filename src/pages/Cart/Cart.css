@@ -1,10 +1,10 @@
 .cart-page{
     padding-top: var(--topSpace);
-    background-color: var(--primaryColor);
+    background-color: var(--secundaryColor);
     display: flex;    
     justify-content: center;
     color: white;
-    height: 90vh;
+    height: 800px;
 }
 
 .cart-content{
@@ -24,11 +24,11 @@
     height: 100%;    
 }
 
-.cart-content .product-scroll{
+.product-scroll{
     display: flex;
     flex-direction: column;    
     gap: 15px;
-    height: 90%;    
+    height: 50vh;    
     overflow-y: auto;
     overflow-x: hidden;   
     width: 700px;  
@@ -54,14 +54,13 @@
     color: gray;
 }
 
-.cart-content .div-btn-finalizar{
-    width: 100%;
+.div-btn-finalizar{   
     display: flex;    
     justify-content: space-around;
     align-items: center;
 }
 
-.cart-content .btn-finalizar-compra{
+.btn-finalizar-compra{
     height: 50px;
     width: 90%;
     background-color: #008000;

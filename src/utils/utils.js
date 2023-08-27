@@ -6,8 +6,7 @@ export const convertToCardNumber = (cardNumber) => {
     
     const divider = cardNumber.toString().match(/.{1,4}/g);
     
-    return divider.reduce((acumulator, item, index) => {
-        console.log(index, acumulator)
+    return divider.reduce((acumulator, item, index) => {      
         if(index == 1) return "**** **** ";
         if(index < 3) return acumulator + "**** ";
         return acumulator + item;

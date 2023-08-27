@@ -12,7 +12,9 @@ import { convertToBrPriceString, convertToCardNumber } from "../../../../utils/u
 
 import Logo from '../../../../assets/logo.png'
 import { AuthContext } from "../../../../commom/context/AuthProvider";
-import { SiCardano } from "react-icons/si";
+import { SiCardano, SiTurkishairlines } from "react-icons/si";
+
+import styles from './styles.module.css'
 
 const CreditCard = ({ isLoading }) => {
     const {user} = useContext(AuthContext);
@@ -25,15 +27,7 @@ const CreditCard = ({ isLoading }) => {
         {isLoading ? (
           <CreditCardLoader width="30rem"/>
         ) : (
-          <Card 
-          style={{ 
-            width: "30rem" , 
-            backgroundColor:'#01031a',
-             borderRadius:10,
-             padding:10,
-             paddingBottom:0,
-             position:'relative'
-            }}>
+          <Card className={styles.card} >
             <Card.Body>
               <Card.Title
                 style={{
@@ -53,7 +47,7 @@ const CreditCard = ({ isLoading }) => {
               </Card.Title>
               <Card.Text style={{fontSize:20}}>{convertToCardNumber("1958452478021487")} </Card.Text>
               <Card.Text className="mb-2">{user.displayName}</Card.Text>
-              <Card.Text>val. 10/25</Card.Text>
+              <Card.Text className="mb-0">val. 10/25</Card.Text>
               <SiCardano className="position-absolute" style={{bottom:25, right:35}} color="orange" size={40}/>              
             </Card.Body>
           </Card>
