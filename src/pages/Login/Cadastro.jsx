@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link, useOutletContext, useNavigate } from 'react-router-dom';
 import { OnSingin } from '../../Services/FirebaseAuthService.js'
 import './Cadastro.css'
+import { AuthContext } from '../../commom/context/AuthProvider.jsx';
 
 const Cadastro = () => {
 
     const [password, setPassword] = useState(null);
     const navigate = useNavigate();
-    const {user} = useOutletContext();
+    const {user} = useContext(AuthContext);
 
     async function Cadastrar(e){
         e.preventDefault();

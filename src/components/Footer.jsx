@@ -8,12 +8,12 @@ const Footer = () => {
         <div className='footerSubMenu'>
             <div>
                 <h5>INSTITUCIONAL</h5>
-                <ul>
-                    <li>Quem Somos</li>
-                    <li>Termos e Condições de Venda</li>
-                    <li>Política de Troca e Devoluções</li>
-                    <li>Nossa Lojas</li>
-                    <li>Localização</li>
+                <ul style={{}}>
+                    <ol>Quem Somos</ol>
+                    <ol>Termos e Condições de Venda</ol>
+                    <ol>Política de Troca e Devoluções</ol>
+                    <ol>Nossa Lojas</ol>
+                    <ol>Localização</ol>
                 </ul>
             </div>
             <div>

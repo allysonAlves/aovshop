@@ -3,20 +3,20 @@ import { Dropdown, DropdownButton } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Placeholder from "react-bootstrap/Placeholder";
-import ModalConfirm from "../../../components/Modal/ModalConfirm";
-import { OnSignOut } from "../../../Services/FirebaseAuthService";
-
+import ModalConfirm from "../../../../components/Modal/ModalConfirm";
+import { OnSignOut } from "../../../../Services/FirebaseAuthService";
+import { useNavigate } from "react-router";
 import { FaUser } from 'react-icons/fa'
 import ProfileLoader from "./ProfileLoader";
 
 const ProfileComp = ({ isLoading, user }) => {
     const [profileImage, setProfileImage] = useState(null);
-   
+   const navigate = useNavigate();
 
   return (
     <>
-      <div className="d-flex">
-        {isLoading ? (
+      <div className="d-flex mt-2">
+        {isLoading || !user ? (
           <ProfileLoader width="30rem"/>
         ) : (
           <Card style={{ width: "30rem" }}>
@@ -36,7 +36,7 @@ const ProfileComp = ({ isLoading, user }) => {
                 >
                   <Dropdown.Item
                     as="button"
-                    onClick={() => console.log("action")}
+                    onClick={() => navigate('./edit')}
                   >
                     Editar
                   </Dropdown.Item>

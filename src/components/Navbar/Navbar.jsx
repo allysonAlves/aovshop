@@ -37,6 +37,7 @@ function Navbar() {
         
     };
 
+    
   return (
     <nav className='bg-aov-dark-0'>
         
@@ -86,8 +87,7 @@ function Navbar() {
                     }
                 </Badge>
                 <span className='visually-hidden'>unread messages</span>
-            </Link>
-            
+            </Link>           
             
         </div>
     </nav>

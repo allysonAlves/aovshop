@@ -51,6 +51,7 @@ function Home() {
         </div>
 
         <h3>MAIS VENDIDOS</h3>
+        <hr/>
         <div className='mais-vendidos'>        
           <ProductGrid>
             {Object.values(maisVendidos).map(product => <CardProduct product={product} key={product?.id}/>) }
@@ -59,6 +60,7 @@ function Home() {
 
         <img src='https://img.terabyteshop.com.br/banner/2303.jpg'/>
         <h3>NOVIDADES</h3>
+        <hr/>
         <div className='mais-vendidos'>       
           <ProductGrid>
             {Object.values(novidades).map(product => <CardProduct product={product} key={product?.id}/>) }

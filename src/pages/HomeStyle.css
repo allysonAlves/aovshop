@@ -82,7 +82,7 @@
 }
 
 .mais-vendidos{
-    padding-top: 30px;
+    padding: 15px 0 15px 0;
     width: 100%;
 }
 @media screen and (min-width: 1275px) {

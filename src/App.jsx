@@ -9,28 +9,11 @@ import CartProvider from './commom/context/CartProvider'
 
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import MessageProvider from './commom/context/MessageProvider'
 
-function App() {   
-  //const [user, setUser] = useState({});  
-  //const [cart, setCart] = useState({});
+function App() {  
+  
   const { pathname } = useLocation(); 
-
-  // useEffect(() =>{
-  //   //OnAuth(setUser);  
-
-  //   if(window.sessionStorage.getItem('cart'))
-  //   {
-  //     setCart(JSON.parse(window.sessionStorage.getItem('cart')));      
-  //   } 
-    
-  // },[])
-
-  // useEffect(() => {
-  //   if(Object.values(cart).length > 0)
-  //   {
-  //     window.sessionStorage.setItem('cart',JSON.stringify(cart));      
-  //   }
-  // },[cart])
 
   useEffect(() => {
     window.scrollTo(0,0);
@@ -39,14 +22,16 @@ function App() {
 
   return (
     <div className="App">
-      <AuthProvider>
-        <StartInformation/>
-        <CartProvider>
-          <Navbar/>        
-          <Outlet/> 
-        </CartProvider>
-        <Footer/> 
-      </AuthProvider>      
+      <StartInformation/> 
+      <MessageProvider>
+        <AuthProvider>
+            <CartProvider>
+              <Navbar/>        
+              <Outlet/> 
+            </CartProvider>
+            <Footer/> 
+        </AuthProvider>      
+      </MessageProvider>
     </div>
   )
 }
