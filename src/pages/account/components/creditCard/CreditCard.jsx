@@ -25,7 +25,7 @@ const CreditCard = ({ isLoading }) => {
     <>
       <div className="d-flex mt-2">
         {isLoading ? (
-          <CreditCardLoader width="30rem"/>
+          <CreditCardLoader width="25rem"/>
         ) : (
           <Card className={styles.card} >
             <Card.Body>
@@ -41,14 +41,14 @@ const CreditCard = ({ isLoading }) => {
                     <img src={Logo} style={{width:30}}/>
                     <span>AOVCard</span>
                 </div>
-                <Card className="p-1">
-                 {convertToBrPriceString(1000)}
+                <Card className="p-1 text-success">
+                 {convertToBrPriceString(15000)}
                 </Card>
               </Card.Title>
               <Card.Text style={{fontSize:20}}>{convertToCardNumber("1958452478021487")} </Card.Text>
               <Card.Text className="mb-2">{user.displayName}</Card.Text>
-              <Card.Text className="mb-0">val. 10/25</Card.Text>
-              <SiCardano className="position-absolute" style={{bottom:25, right:35}} color="orange" size={40}/>              
+              <Card.Text className="mb-0">val. 07/25</Card.Text>
+              <SiCardano className="position-absolute" style={{bottom:25, right:35}} color="#f38846" size={40}/>              
             </Card.Body>
           </Card>
         )}

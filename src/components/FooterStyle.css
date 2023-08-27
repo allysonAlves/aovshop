@@ -19,14 +19,13 @@
 }
 
 .footerSubMenu ul{
-    font-size: 13px;
-    margin-top: 10px;
-    
-    
+    font-size: 13px;    
+    padding: 0;
+    margin: 0;
 }
 
 .footerSubMenu ul ol{
-    margin-top: 5px;
+    padding: 0 0 2px 0;    
 }
 
 .footerSubMenu ul ol:hover{

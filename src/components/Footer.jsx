@@ -1,14 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import './FooterStyle.css'
+import { AuthContext } from '../commom/context/AuthProvider'
 
 const Footer = () => {
+
+    const {user} = useContext(AuthContext);
+
   return (
     <footer className='footer'>
         <div className='footerSubMenu'>
             <div>
                 <h5>INSTITUCIONAL</h5>
-                <ul style={{}}>
+                <ul>
                     <ol>Quem Somos</ol>
                     <ol>Termos e Condições de Venda</ol>
                     <ol>Política de Troca e Devoluções</ol>
@@ -34,14 +38,17 @@ const Footer = () => {
                     <ol>Política de Privacidade</ol>
                 </ul>
             </div>
-            <div>
-                <h5>Quer ficar antenado nas promoções?</h5>
-                <ul>
-                    <ol>Cadastre seu email e acompanhe as melhores promoções em tempo real!</ol>
-                    <ol><input id='input-cadastrar-email' type='email' placeholder='digite seu email'/></ol>
-                    <button id='button-cadastrar-email'> CADASTRAR</button>
-                </ul>
-            </div>
+            {
+                !user &&
+                <div>
+                    <h5>Quer ficar antenado nas promoções?</h5>
+                    <ul>
+                        <ol>Cadastre seu email e acompanhe as melhores promoções em tempo real!</ol>
+                        <ol><input id='input-cadastrar-email' type='email' placeholder='digite seu email'/></ol>
+                        <button id='button-cadastrar-email'> CADASTRAR</button>
+                    </ul>
+                </div>
+            }
         </div>
         <div className='footerEnterprise'>
 

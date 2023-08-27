@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState, useEffect } from "react";
 import { useParams, Link, useOutletContext, useNavigate } from "react-router-dom";
 import { FaBarcode, FaShareAlt, FaAngleRight } from 'react-icons/fa'
@@ -9,30 +9,32 @@ import{ BsCreditCard } from 'react-icons/bs'
 import './Produto.css'
 import { getProduct } from '../Services/ProductsFirestoreService';
 import AccordionDetails from '../components/Accordion/AccordionDetails';
+import { CartContext } from '../commom/context/CartProvider';
+import { Card } from 'react-bootstrap';
 
 function Produto() {
 
-  const produtosURL = import.meta.env.VITE_URL_PRODUTOS;
+  // const produtosURL = import.meta.env.VITE_URL_PRODUTOS;
   const {id} = useParams()
-  const { cart , setCart } = useOutletContext();
+  const { cart , addProduct } = useContext(CartContext);
   const [product, setProduct] = useState(null)
-  const [produtosFiltrados, setProdutosfiltrados] = useState([])
-  const [produtos, setProdutos] = useState([])
+  // const [produtosFiltrados, setProdutosfiltrados] = useState([])
+  // const [produtos, setProdutos] = useState([])
   const [showParcelas, setShowParcelas] = useState(false)
   const navigate = useNavigate();
 
   
   
-  function obterProdutosFiltrados(){
-    let filtrados = produtos.filter(f => f.id != product.id);
-    filtrados.sort(compareFn);
-    return filtrados;
-  }
+  // function obterProdutosFiltrados(){
+  //   let filtrados = produtos.filter(f => f.id != product.id);
+  //   filtrados.sort(compareFn);
+  //   return filtrados;
+  // }
 
   useEffect(() =>{    
     getProduct(id).then(result => setProduct(result));
-}
-,[id])
+  }
+  ,[id])
 
 function compareFn(a, b) {
   let aCompare = 0;
@@ -77,17 +79,17 @@ const share = async () =>
   }
 }
 
-  const addToCart = () => {
-    setCart(previous => {      
-      let amountInCart = cart[product.id] ? cart[product.id]?.amount + 1 : 1;
-      let productToCart = {...product, amount: amountInCart};
-      //console.log("[ amount ==>>]", amountInCart," [product =>>]", productToCart)
-      return {...previous, [product.id]: productToCart}
-    });
+  // const addToCart = () => {
+  //   setCart(previous => {      
+  //     let amountInCart = cart[product.id] ? cart[product.id]?.amount + 1 : 1;
+  //     let productToCart = {...product, amount: amountInCart};
+  //     //console.log("[ amount ==>>]", amountInCart," [product =>>]", productToCart)
+  //     return {...previous, [product.id]: productToCart}
+  //   });
 
-    navigate('/cart')
+  //   navigate('/cart')
     
-  }
+  // }
 
 
   return (
@@ -98,8 +100,7 @@ const share = async () =>
       {product &&
         <div className='produto'>
           <div className="produto-destaque">
-            <div className="container-imagem">
-             
+            <div className="container-imagem">             
               <div className="box-imagem">
                 <img className='bg-image hover-zoom' src={product.images[0]}/>
               </div>
@@ -107,7 +108,7 @@ const share = async () =>
                 <img className='imagem-option' src={product.images[0]}/>
               </div>
             </div>
-            <div className="container-compra">
+            <Card className="container-compra">
               <div className="box-desconto-share">
                 <div className="box-desconto">
                   <p>{product.sale}% </p>
@@ -185,23 +186,23 @@ const share = async () =>
                   <Link to='/cart'>VER NO CARRINHO</Link>
                 </div>
                 :
-                <button onClick={() => addToCart()} className="button-comprar">COMPRAR</button>
+                <button onClick={() => addProduct(product)} className="button-comprar">COMPRAR</button>
               }
 
-            </div>
+            </Card>
           </div>
           <AccordionDetails product={product}/>
 
           
         </div>
       }
-      {product && 
+      {/* {product && 
         <div className='box-recentes'>
           {           
             obterProdutosFiltrados().map(pd => <Link to={`/produto/${pd.id}`} key={pd.id} className='recentes-item'> <img title={pd.descricao} className='imagem-recentes' src={pd.imagemProduto}/></Link>)
           }
         </div>
-      }
+      } */}
     </div>
     
   )
