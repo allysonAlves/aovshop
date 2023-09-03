@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { GetAllProducts } from '../../Services/ProductsService';
 import { searchProducts, getProduct } from '../../Services/ProductsFirestoreService';
 
 

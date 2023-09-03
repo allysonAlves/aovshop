@@ -15,7 +15,7 @@ const Message = ({children,show,hide, variant}) => {
             {
                 show && 
                 <Alert 
-                style={{position:'absolute', top:'100px', right:'100px'}} 
+                style={{position:'absolute', top:'100px', right:'100px',zIndex:'100'}} 
                 variant={variant}>
                     {children} 
                     <span onClick={hide} style={{color:'white', marginLeft:10, cursor:'pointer'}}>X</span>

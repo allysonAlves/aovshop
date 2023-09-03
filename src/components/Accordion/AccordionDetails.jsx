@@ -35,10 +35,12 @@ function AccordionDetails({product = {}}) {
           {product?.details &&
             <dl>
             {Object.entries(product?.details).map(([key,value]) => {
-                return (<>
+                return (
+                <div key={key}>
                   <dt>{key}</dt>
-                  <dd>{<div dangerouslySetInnerHTML={{__html: value}} />}</dd>
-                </>)
+                  <dd>{<div dangerouslySetInnerHTML={{__html: value}} />}</dd>                 
+                </div>
+                )
             })}
             </dl>
           }

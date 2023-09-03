@@ -17,14 +17,14 @@ import { SiCardano, SiTurkishairlines } from "react-icons/si";
 import styles from './styles.module.css'
 
 const CreditCard = ({ isLoading }) => {
-    const {user} = useContext(AuthContext);
+    const {user, creditCard} = useContext(AuthContext);
    
     const navigate = useNavigate();
 
   return (
     <>
       <div className="d-flex mt-2">
-        {isLoading ? (
+        {isLoading || !user || !creditCard ? (
           <CreditCardLoader width="25rem"/>
         ) : (
           <Card className={styles.card} >
@@ -42,10 +42,10 @@ const CreditCard = ({ isLoading }) => {
                     <span>AOVCard</span>
                 </div>
                 <Card className="p-1 text-success">
-                 {convertToBrPriceString(15000)}
+                 {convertToBrPriceString(creditCard?.value)}
                 </Card>
               </Card.Title>
-              <Card.Text style={{fontSize:20}}>{convertToCardNumber("1958452478021487")} </Card.Text>
+              <Card.Text style={{fontSize:20}}>{convertToCardNumber(creditCard?.number)} </Card.Text>
               <Card.Text className="mb-2">{user.displayName}</Card.Text>
               <Card.Text className="mb-0">val. 07/25</Card.Text>
               <SiCardano className="position-absolute" style={{bottom:25, right:35}} color="#f38846" size={40}/>              

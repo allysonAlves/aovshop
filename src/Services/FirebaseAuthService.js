@@ -16,9 +16,9 @@ import {
   reauthenticateWithCredential,
   EmailAuthProvider,
   deleteUser,
+  getAdditionalUserInfo
 } from "firebase/auth";
 
-import { writeUserData } from "./FirebaseDatabaseService";
 import app from "./FirebaseConfigApp";
 import { CreateUser, updateUser } from "./UserFirestoreService";
 
@@ -36,7 +36,7 @@ const OnSingin = async ({ Email, Password, Username }) => {
 
   //writeUserData(user.uid, user.displayName, user.email);
   sendEmailVerification(user, { url: "https://aovshop.netlify.app/" });
-  addUserToFirestore(user);
+  CreateUser(user);
   return user;
 };
 
@@ -73,11 +73,16 @@ const LoginWithGoogle = () => {
     .then((result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
+      const isNewUser = getAdditionalUserInfo(result).isNewUser;
+      console.log(adicional)
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
       // IdP data available using getAdditionalUserInfo(result)
-      addUserToFirestore(user);
+      if(isNewUser)
+      {
+        CreateUser(user);       
+      }
      
       // ...
     })
@@ -121,13 +126,6 @@ const LoginWithGoogle = () => {
 //     });
 // };
 
-const addUserToFirestore = (user) => {
-  CreateUser(user.uid, {
-    uid: user.uid,
-    name: user.displayName,
-    email: user.email,
-  });
-};
 
 const userUpdatePassword = (newPassword) => {  
   return new Promise((resolve, reject) => {

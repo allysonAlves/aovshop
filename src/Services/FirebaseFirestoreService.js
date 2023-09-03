@@ -7,11 +7,10 @@ const FirebaseService = class {
     constructor(collection) {
       this.collection = collection;    
     }
-
-    async Get(documentId)
-    {
-        
-        const result = await getDoc(doc(firestore,this.collection,documentId))
+    
+    async Get(id)
+    {        
+        const result = await getDoc(doc(firestore,this.collection,id))
 
         if(result.exists())
         {
@@ -60,13 +59,13 @@ const FirebaseService = class {
         await deleteDoc(doc(firestore, this.collection, documentId));
     }
 
-    ListenerData(documentId, functionToGetNewData){
+    ListenerData(documentId, callback){
         onSnapshot(doc(firestore, this.collection, documentId), 
         { includeMetadataChanges: true },
         (doc) => {
             const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
             //console.log(source, " data: ", doc.data());
-            functionToGetNewData({data: doc.data(), status:source});
+            callback({data: doc.data(), status:source});
         });
     } 
 

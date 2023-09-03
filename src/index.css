@@ -59,6 +59,19 @@ html,body{
     font-weight: bold;
   }
 
+  .aov-page{
+    padding-top: var(--topSpace);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--secundaryColor);
+    min-height: 800px;
+  }
+
+  .aov-content{
+    width: var(--contentSize);
+  }
+
 }
 
 
