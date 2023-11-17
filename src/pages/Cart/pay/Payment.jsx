@@ -7,6 +7,7 @@ import { OrdersContext } from '../../../commom/context/OrdersProvider';
 import { useNavigate } from 'react-router-dom';
 import { Step, StepLabel, Stepper, ThemeProvider, createTheme } from '@mui/material';
 import { red } from '@mui/material/colors';
+import Address from './components/Address';
 
 const darkTheme = createTheme({
   palette: {
@@ -15,13 +16,13 @@ const darkTheme = createTheme({
 });
 
 const Payment = () => {
-    const navigate = useNavigate();
-    const {creditCard,user, loadingUser} = useContext(AuthContext);
-    const {cart,total} = useContext(CartContext);
-    const {pay, isPaymentLoad, setOrderDetails, newOrder, isSuccessBuy} = useContext(OrdersContext);
+  const navigate = useNavigate();
+  const {creditCard,user, loadingUser} = useContext(AuthContext);
+  const {cart,total} = useContext(CartContext);
+  const {pay, isPaymentLoad, setOrderDetails, newOrder, isSuccessBuy} = useContext(OrdersContext);
 
-    const [order, setOrder] = useState(initialOrder);
-    const [step, setStep] = useState(0);    
+  const [order, setOrder] = useState(initialOrder);
+  const [step, setStep] = useState(0);    
 
   useEffect(() =>{
     if(!user && !loadingUser)
@@ -35,6 +36,10 @@ const Payment = () => {
       navigate('/account/orders')
     }
   },[isSuccessBuy])
+
+  const components = [
+    () => <Address/>
+  ];
     
 
   return (
@@ -49,10 +54,12 @@ const Payment = () => {
               <StepLabel>Pagamento</StepLabel>
             </Step>
             <Step key={3}>
-              <StepLabel>Finalizar</StepLabel>
+              <StepLabel>Concluído</StepLabel>
             </Step>
           </Stepper>         
-        
+          {
+            components[step]()
+          }
         </div>
       </div>
     </ThemeProvider>

@@ -1,4 +1,4 @@
-import React,{useContext, useState} from 'react'
+import React,{memo, useContext, useMemo, useState} from 'react'
 import { Link, useNavigate } from "react-router-dom"
 import {BiSearchAlt2} from "react-icons/bi"
 import {RiInstagramFill,RiTwitterFill, RiFacebookFill, RiYoutubeFill} from "react-icons/ri"
@@ -23,6 +23,16 @@ import styles from './Navbar.module.css'
 import './Navbar.css'
 import { CartContext } from '../../commom/context/CartProvider'
 
+const IconsSociais = memo(() => {
+    return(
+        <>
+            <a><RiFacebookFill size={22}/></a>
+            <a><RiTwitterFill size={22}/></a>
+            <a><RiInstagramFill size={22}/></a>
+            <a><RiYoutubeFill size={22}/></a>        
+        </>
+    )
+});
 
 
 function Navbar() { 
@@ -42,10 +52,7 @@ function Navbar() {
     <nav className='bg-aov-dark-0'>
         
         <div className={styles.box_sociais}>
-            <a><RiFacebookFill size={22}/></a>
-            <a><RiTwitterFill size={22}/></a>
-            <a><RiInstagramFill size={22}/></a>
-            <a><RiYoutubeFill size={22}/></a>            
+            <IconsSociais/>
         </div>
         <div style={{width:'100%', height:0.1, backgroundColor:'#333', marginTop:5, marginBottom:5}}></div>
         <div className={styles.navbar}>
@@ -94,4 +101,4 @@ function Navbar() {
   )
 }
 
-export default Navbar
+export default Navbar;

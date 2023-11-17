@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import { useNavigate } from 'react-router-dom'
-import ProductCardOnCart from '../../components/productCardOnCart/productCardOnCart'
+import ProductCardOnCart from '../../components/ProductCardOnCart/ProductCardOnCart'
 import './Cart.css'
 import { CartContext } from '../../commom/context/CartProvider'
 import { convertToBrPriceString } from '../../utils/utils'

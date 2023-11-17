@@ -11,6 +11,8 @@ import { getProduct } from '../Services/ProductsFirestoreService';
 import AccordionDetails from '../components/Accordion/AccordionDetails';
 import { CartContext } from '../commom/context/CartProvider';
 import { Card } from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
+import { Collapse } from '@mui/material';
 
 function Produto() {
 
@@ -23,13 +25,10 @@ function Produto() {
   const [showParcelas, setShowParcelas] = useState(false)
   const navigate = useNavigate();
 
-  
-  
-  // function obterProdutosFiltrados(){
-  //   let filtrados = produtos.filter(f => f.id != product.id);
-  //   filtrados.sort(compareFn);
-  //   return filtrados;
-  // }
+  const title = product?.name;
+  const description = "Descrição dinâmica da página";
+  const imageUrl = product?.images[0];
+ 
 
   useEffect(() =>{    
     getProduct(id).then(result => setProduct(result));
@@ -65,6 +64,7 @@ const getParcelas = () => {
   }
   return items;
 }
+
 const share = async () =>
 {
   try{
@@ -75,25 +75,18 @@ const share = async () =>
     });
   } 
   catch{
+    
 
   }
 }
 
-  // const addToCart = () => {
-  //   setCart(previous => {      
-  //     let amountInCart = cart[product.id] ? cart[product.id]?.amount + 1 : 1;
-  //     let productToCart = {...product, amount: amountInCart};
-  //     //console.log("[ amount ==>>]", amountInCart," [product =>>]", productToCart)
-  //     return {...previous, [product.id]: productToCart}
-  //   });
-
-  //   navigate('/cart')
-    
-  // }
-
-
   return (
     <div className='produto-page'>
+      <Helmet>
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={imageUrl} />
+      </Helmet>
       <div className='outdoor'>
         <img className='outdoor-img' src='https://img.terabyteshop.com.br/banner/2138.jpg'></img>
       </div>      
@@ -117,7 +110,7 @@ const share = async () =>
                   <p>{product.stock}</p>
                 </div>
                 <div className="box-share">
-                  <FaShareAlt onClick={share}/>
+                  <FaShareAlt onClick={share}/>                                
                 </div>
               </div>
               <div className="classificacao">
@@ -166,16 +159,14 @@ const share = async () =>
                     </p>
                     <div className="container-mais-parcelas">
                       <span onClick={() => setShowParcelas(!showParcelas)} className="box-titulo-mais-parcelas">
-                        VER PARCELAMENTO  {!showParcelas? <RxChevronDown/>: <RxChevronUp/> }
+                        <span style={{marginRight:5}}>VER PARCELAMENTO</span>  {!showParcelas? <RxChevronDown/>: <RxChevronUp/> }
                       </span>
-
-                      {showParcelas && 
+                      <Collapse appear={showParcelas} in={showParcelas}>
                         <div className="box-parcelas">
-                        {getParcelas()}               
-                        </div>             
-                      }                  
-                        
-                            
+                          {getParcelas()}               
+                        </div>   
+                      </Collapse>
+
                     </div>
                   </div>
                 </div>

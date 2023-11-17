@@ -1,27 +1,43 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { OnAuth, userUpdateProfile,userUpdatePassword } from '../../Services/FirebaseAuthService';
 import { MessageContext } from './MessageProvider';
-import { listenerUser } from '../../Services/UserFirestoreService';
+import { listenerUser, getUser } from '../../Services/UserFirestoreService';
 
 
 export const AuthContext = React.createContext();
 
 const AuthProvider = ({children}) => {  
   const {showMessage} = useContext(MessageContext);
-  const [user , setUser] = useState(null);
+  const [auth , setAuth] = useState(null);
+  const [user, setUser] = useState({address: {}, card: null});
   const [loadingUser, setLoadingUser] = useState(true);
   const [loadSave, setLoadSave] = useState(false); 
-  const [creditCard, setCreditCard] = useState(); 
 
   useEffect(() =>{   
     OnAuth(auth => {
-      setUser(auth);
-      setLoadingUser(false);
-      if(auth){
-        listenerUser(auth.uid, (res) => setCreditCard(res.data?.card ? res.data.card : null ));
-      }
+      setAuth(auth);           
     });
   },[]);
+
+  useEffect(() => {
+    if(auth){      
+      getUser(auth.uid)
+      .then(res =>{         
+        setUser(res);          
+      })
+      .catch(error =>{
+        showMessage('erro no login '+ error, 'danger');
+        setLoadingUser(false);
+      });
+    }
+
+  },[auth])
+
+  useEffect(() => {
+    if(user){
+      setLoadingUser(false); 
+    }
+  },[user])
  
 
   const updateProfile = (name, email, photo) => {    
@@ -36,7 +52,17 @@ const AuthProvider = ({children}) => {
   } 
 
   return (
-    <AuthContext.Provider value={{user, loadingUser,loadSave, updateProfile,creditCard}}>        
+    <AuthContext.Provider 
+    value={
+      {
+        user: auth, 
+        creditCard: user.card,
+        address: user.address,
+        loadingUser,
+        loadSave, 
+        updateProfile,
+      }
+    }>        
         {children}
     </AuthContext.Provider>
   )

@@ -23,8 +23,7 @@ const Account = () => {
           <ProfileComp isLoading={loadingUser} user={user} />
         </div>
 
-        <div className="account-data">
-          <h3>Cartões</h3>
+        <div className="account-data">          
           <div className="data">
             <CreditCard isLoading={loadingUser} user={user} />
           </div>

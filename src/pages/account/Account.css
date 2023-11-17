@@ -13,8 +13,9 @@
 .account-page .page-limit{
     width: var(--contentSize);
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
     
 }
 
