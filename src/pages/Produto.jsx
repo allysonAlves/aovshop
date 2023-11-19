@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState, useEffect } from "react";
 import { useParams, Link, useOutletContext, useNavigate } from "react-router-dom";
 import { FaBarcode, FaShareAlt, FaAngleRight } from 'react-icons/fa'
@@ -9,30 +9,31 @@ import{ BsCreditCard } from 'react-icons/bs'
 import './Produto.css'
 import { getProduct } from '../Services/ProductsFirestoreService';
 import AccordionDetails from '../components/Accordion/AccordionDetails';
+import { CartContext } from '../commom/context/CartProvider';
+import { Card } from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
+import { Collapse } from '@mui/material';
 
 function Produto() {
 
-  const produtosURL = import.meta.env.VITE_URL_PRODUTOS;
+  // const produtosURL = import.meta.env.VITE_URL_PRODUTOS;
   const {id} = useParams()
-  const { cart , setCart } = useOutletContext();
+  const { cart , addProduct } = useContext(CartContext);
   const [product, setProduct] = useState(null)
-  const [produtosFiltrados, setProdutosfiltrados] = useState([])
-  const [produtos, setProdutos] = useState([])
+  // const [produtosFiltrados, setProdutosfiltrados] = useState([])
+  // const [produtos, setProdutos] = useState([])
   const [showParcelas, setShowParcelas] = useState(false)
   const navigate = useNavigate();
 
-  
-  
-  function obterProdutosFiltrados(){
-    let filtrados = produtos.filter(f => f.id != product.id);
-    filtrados.sort(compareFn);
-    return filtrados;
-  }
+  const title = product?.name;
+  const description = "Descrição dinâmica da página";
+  const imageUrl = product?.images[0];
+ 
 
   useEffect(() =>{    
     getProduct(id).then(result => setProduct(result));
-}
-,[id])
+  }
+  ,[id])
 
 function compareFn(a, b) {
   let aCompare = 0;
@@ -63,6 +64,7 @@ const getParcelas = () => {
   }
   return items;
 }
+
 const share = async () =>
 {
   try{
@@ -73,33 +75,25 @@ const share = async () =>
     });
   } 
   catch{
+    
 
   }
 }
 
-  const addToCart = () => {
-    setCart(previous => {      
-      let amountInCart = cart[product.id] ? cart[product.id]?.amount + 1 : 1;
-      let productToCart = {...product, amount: amountInCart};
-      //console.log("[ amount ==>>]", amountInCart," [product =>>]", productToCart)
-      return {...previous, [product.id]: productToCart}
-    });
-
-    navigate('/cart')
-    
-  }
-
-
   return (
     <div className='produto-page'>
+      <Helmet>
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={imageUrl} />
+      </Helmet>
       <div className='outdoor'>
         <img className='outdoor-img' src='https://img.terabyteshop.com.br/banner/2138.jpg'></img>
       </div>      
       {product &&
         <div className='produto'>
           <div className="produto-destaque">
-            <div className="container-imagem">
-             
+            <div className="container-imagem">             
               <div className="box-imagem">
                 <img className='bg-image hover-zoom' src={product.images[0]}/>
               </div>
@@ -107,7 +101,7 @@ const share = async () =>
                 <img className='imagem-option' src={product.images[0]}/>
               </div>
             </div>
-            <div className="container-compra">
+            <Card className="container-compra">
               <div className="box-desconto-share">
                 <div className="box-desconto">
                   <p>{product.sale}% </p>
@@ -116,7 +110,7 @@ const share = async () =>
                   <p>{product.stock}</p>
                 </div>
                 <div className="box-share">
-                  <FaShareAlt onClick={share}/>
+                  <FaShareAlt onClick={share}/>                                
                 </div>
               </div>
               <div className="classificacao">
@@ -165,16 +159,14 @@ const share = async () =>
                     </p>
                     <div className="container-mais-parcelas">
                       <span onClick={() => setShowParcelas(!showParcelas)} className="box-titulo-mais-parcelas">
-                        VER PARCELAMENTO  {!showParcelas? <RxChevronDown/>: <RxChevronUp/> }
+                        <span style={{marginRight:5}}>VER PARCELAMENTO</span>  {!showParcelas? <RxChevronDown/>: <RxChevronUp/> }
                       </span>
-
-                      {showParcelas && 
+                      <Collapse appear={showParcelas} in={showParcelas}>
                         <div className="box-parcelas">
-                        {getParcelas()}               
-                        </div>             
-                      }                  
-                        
-                            
+                          {getParcelas()}               
+                        </div>   
+                      </Collapse>
+
                     </div>
                   </div>
                 </div>
@@ -185,23 +177,23 @@ const share = async () =>
                   <Link to='/cart'>VER NO CARRINHO</Link>
                 </div>
                 :
-                <button onClick={() => addToCart()} className="button-comprar">COMPRAR</button>
+                <button onClick={() => addProduct(product)} className="button-comprar">COMPRAR</button>
               }
 
-            </div>
+            </Card>
           </div>
           <AccordionDetails product={product}/>
 
           
         </div>
       }
-      {product && 
+      {/* {product && 
         <div className='box-recentes'>
           {           
             obterProdutosFiltrados().map(pd => <Link to={`/produto/${pd.id}`} key={pd.id} className='recentes-item'> <img title={pd.descricao} className='imagem-recentes' src={pd.imagemProduto}/></Link>)
           }
         </div>
-      }
+      } */}
     </div>
     
   )

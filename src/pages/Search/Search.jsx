@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react'
-import { useSearchParams, useOutletContext } from 'react-router-dom'
-import { GetAllProducts } from '../../Services/ProductsService';
+import { useSearchParams } from 'react-router-dom'
 import { searchProducts, getProduct } from '../../Services/ProductsFirestoreService';
-import { getUser } from '../../Services/UserFirestoreService';
+
 
 
 import './Search.css'
@@ -10,8 +9,6 @@ import ProductGrid from '../../components/ProductGrid/ProductGrid';
 import CardProduct from '../../components/CardProduct/CardProduct';
 
 function Search() {
-
-  const {user} = useOutletContext();
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q');
   const [products, setProducts] = useState([]);

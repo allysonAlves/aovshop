@@ -3,27 +3,28 @@ import { Dropdown, DropdownButton } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Placeholder from "react-bootstrap/Placeholder";
-import ModalConfirm from "../../../components/Modal/ModalConfirm";
-import { OnSignOut } from "../../../Services/FirebaseAuthService";
-
+import ModalConfirm from "../../../../components/Modal/ModalConfirm";
+import { OnSignOut } from "../../../../Services/FirebaseAuthService";
+import { useNavigate } from "react-router";
 import { FaUser } from 'react-icons/fa'
 import ProfileLoader from "./ProfileLoader";
 
 const ProfileComp = ({ isLoading, user }) => {
-    const [profileImage, setProfileImage] = useState(null);
+    const [profileImage, setProfileImage] = useState(user?.photoURL);
+   const navigate = useNavigate();
 
-    useEffect(()=>{
-        setProfileImage(!profileImage)
-    },[user])
+   useEffect(() => {
+    setProfileImage(user?.photoURL? user.photoURL: null);
+   },[user?.photoURL])
 
   return (
     <>
-      <div className="d-flex">
-        {isLoading ? (
-          <ProfileLoader width="30rem"/>
+      <div className="d-flex mt-2">
+        {isLoading || !user ? (
+          <ProfileLoader width="25rem"/>
         ) : (
-          <Card style={{ width: "30rem" }}>
-            <Card.Body>
+          <div style={{ width: "25rem"}}>
+            <Card.Body style={{display:'flex', flexDirection:'column',gap:10}}>
               <Card.Title
                 style={{
                   display: "flex",
@@ -35,11 +36,11 @@ const ProfileComp = ({ isLoading, user }) => {
                 <DropdownButton
                   id="dropdown-item-button"
                   title="Minha Conta"
-                  variant="dark"
+                  variant="none"
                 >
                   <Dropdown.Item
                     as="button"
-                    onClick={() => console.log("action")}
+                    onClick={() => navigate('./edit')}
                   >
                     Editar
                   </Dropdown.Item>
@@ -57,14 +58,14 @@ const ProfileComp = ({ isLoading, user }) => {
                 </DropdownButton>
               </Card.Title>
               <Card style={{ width: 80, height: 80, borderRadius: 15, overflow:'hidden', alignItems:'center', justifyContent:'center'}}>
-                {
-                    profileImage?
-                    <FaUser size={45}/> :
-                    <img src={user.photoURL} onError={() => setProfileImage(true)}/>
+               {
+                !profileImage?
+                  <FaUser size={45}/> :
+                <img src={profileImage} onError={() => setProfileImage(null)}/>
+               }
 
-                }
               </Card>
-              <Card style={{marginTop:10, border:'none'}}>                
+              <div style={{marginTop:10, border:'none'}}>                
                 <Card.Text style={{marginBottom:0}}>
                     {user?.displayName}
                 </Card.Text>
@@ -82,9 +83,9 @@ const ProfileComp = ({ isLoading, user }) => {
                         </Card.Text>
                     </>
                 }
-              </Card>   
+              </div>   
             </Card.Body>
-          </Card>
+          </div>
         )}
       </div>
     </>

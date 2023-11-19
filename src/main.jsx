@@ -14,23 +14,28 @@ import Orders from "./pages/account/Orders.jsx"
 import Cart from "./pages/Cart/Cart.jsx"
 
 import './index.css'
+import AuthProvider from "./commom/context/AuthProvider.jsx"
+import EditAccount from "./pages/account/edit/EditAccount.jsx"
+import Payment from "./pages/Cart/pay/Payment.jsx"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route element={<App/>}>
-          <Route path='/' element={<Home/>}/>
-          <Route path='produto/:id' element={<Produto/>}/>
-          <Route path='search' element={<Search/>}/>
-          <Route path='categoria/:id' element={<Categoria/>}/>
-          <Route path='login' element={<Login/>}/>
-          <Route path='singin' element={<Cadastro/>}/>
-          <Route path='account' element={<Account/>}/>
-          <Route path='account/orders' element={<Orders/>}/>
-          <Route path='/cart' element={<Cart/>}/>
-        </Route>        
-      </Routes>
-    </BrowserRouter>
+  <React.StrictMode>    
+      <BrowserRouter>        
+        <Routes>
+          <Route element={<App/>}>
+            <Route path='/' element={<Home/>}/>
+            <Route path='produto/:id' element={<Produto/>}/>
+            <Route path='search' element={<Search/>}/>
+            <Route path='categoria/:id' element={<Categoria/>}/>
+            <Route path='login' element={<Login/>}/>
+            <Route path='singin' element={<Cadastro/>}/>
+            <Route path='account' element={<Account/>}/>
+            <Route path='account/orders' element={<Orders/>}/>
+            <Route path='account/edit' element={<EditAccount/>}/>
+            <Route path='/cart' element={<Cart/>}/>
+            <Route path='/cart/payment' element={<Payment/>}/>
+          </Route>        
+        </Routes>
+      </BrowserRouter>    
   </React.StrictMode>,
 )

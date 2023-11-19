@@ -5,7 +5,7 @@
 }
 html,body{
   background-color: #333333;
- 
+  width: 100%;
 }
 :root{
   --contentSize: 1250px;
@@ -14,7 +14,8 @@ html,body{
   --secundaryOrange: orangered;
   --primaryColor: #333;
   --secundaryColor:#222;
-  --topSpace: 100px;
+  --aovshopGreen: #008000;
+  --topSpace: 100px;  
 
   @media screen and (max-width: 1274px) {
     --contentSize: 1044px;
@@ -50,5 +51,29 @@ html,body{
     color: var(--secundaryColor);
   }
 
+  .aov-text-green{
+    color: var(--aovshopGreen);
+  }
+
+  .aov-bold{
+    font-weight: bold;
+  }
+
+  .aov-page{
+    padding-top: var(--topSpace);
+    width: 100%;   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--secundaryColor);
+    min-height: 90vh;    
+  }
+
+  .aov-content{
+    width: var(--contentSize);
+  }
+
 }
+
+
 

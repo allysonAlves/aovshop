@@ -1,39 +1,19 @@
-import { useRef, useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
 import { Outlet, useLocation} from 'react-router-dom'
+
 import Navbar from './components/Navbar/Navbar'
 import Footer from './components/Footer'
+import StartInformation from './components/Modal/StartInformation'
+import AuthProvider from './commom/context/AuthProvider'
+import CartProvider from './commom/context/CartProvider'
 
-
-import { OnAuth, OnSignOut} from './Services/FirebaseAuthService.js'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import StartInformation from './components/Modal/StartInformation'
+import MessageProvider from './commom/context/MessageProvider'
 
-function App() {   
-  const [user, setUser] = useState({});
-  const [cart, setCart] = useState({});
-  const { pathname } = useLocation();
-
- 
-
-  useEffect(() =>{
-    OnAuth(setUser);  
-
-    if(window.sessionStorage.getItem('cart'))
-    {
-      setCart(JSON.parse(window.sessionStorage.getItem('cart')));      
-    } 
-    
-  },[])
-
-  useEffect(() => {
-    if(Object.values(cart).length > 0)
-    {
-      window.sessionStorage.setItem('cart',JSON.stringify(cart));      
-    }
-  },[cart])
+function App() {  
+  
+  const { pathname } = useLocation(); 
 
   useEffect(() => {
     window.scrollTo(0,0);
@@ -41,17 +21,17 @@ function App() {
   
 
   return (
-    <div className="App">       
-      <StartInformation/>
-
-      <Navbar        
-        user={user}
-        cart={cart}         
-        />
-      <main>
-        <Outlet context={{user,cart,setCart}} />
-      </main>
-      <Footer user={user}/>      
+    <div className="App">
+      <StartInformation/> 
+      <MessageProvider>
+        <AuthProvider>
+            <CartProvider>
+              <Navbar/>        
+              <Outlet/> 
+            </CartProvider>
+            <Footer/> 
+        </AuthProvider>      
+      </MessageProvider>
     </div>
   )
 }

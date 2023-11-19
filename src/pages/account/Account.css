@@ -6,12 +6,16 @@
     align-items: center;
     width: 100%;
     padding: var(--topSpace) 0 50px 0;
-    min-height: 70vh;
+    min-height: 800px;
     overflow-x: hidden; 
 }
 
 .account-page .page-limit{
     width: var(--contentSize);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
     
 }
 
@@ -32,7 +36,7 @@
 }
 
 .account-data{
-    padding-top: 50px;
+    padding-top: 30px;
 }
 
 .account-data .div-imagem{

@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import { FaAngleRight } from 'react-icons/fa' 
 import { Link } from 'react-router-dom';
 import { searchProducts, searchProductsCategory} from '../Services/ProductsFirestoreService';
-import { SearchProducts } from '../Services/ProductsService';
 import ProductGrid from '../components/ProductGrid/ProductGrid';
 import CardProduct from '../components/CardProduct/CardProduct';
 

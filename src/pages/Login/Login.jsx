@@ -1,30 +1,31 @@
-import React, {useEffect} from 'react'
-import { Link, useOutletContext, useNavigate } from 'react-router-dom';
+import React, {useContext, useEffect} from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc'
-import { FaFacebookSquare } from 'react-icons/fa'
-import { OnLogin, LoginWithGoogle, LoginWithFacebook } from '../../Services/FirebaseAuthService.js'
+import { OnLogin, LoginWithGoogle } from '../../Services/FirebaseAuthService.js'
+
+import { AuthContext } from '../../commom/context/AuthProvider.jsx';
 import './login.css'
 
 const Login = () => {
-    const {user} = useOutletContext();
+    const {user} = useContext(AuthContext);
     const navigate = useNavigate();
+    const { state } = useLocation();
 
-    useEffect(() =>{
-        if(user?.uid){
-            navigate('/account');
+
+    useEffect(() => {
+        if(user){
+            navigate(state?.redirect ? state.redirect : '/account');
         }
-    },[user])
-
+    },[user]);
     
-    async function Login(e){
+    function Login(e){
         e.preventDefault();
         const data = [...new FormData(e.target).entries()];
         let email = data[0][1];
         let password = data[1][1];        
                
         if(email && password){
-            const credential = await OnLogin({"Email":email, "Password": password});
-            
+            OnLogin({"Email":email, "Password": password});            
         }
     }
 
