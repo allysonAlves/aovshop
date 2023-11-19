@@ -20,8 +20,7 @@ function Home() {
 
     useEffect(() =>{
      
-      searchProducts("mais-vendidos").then(result =>{ 
-        
+      searchProducts("mais-vendidos").then(result =>{
         setMaisVendidos(result)
       })
       searchProducts("novidades").then(result => {

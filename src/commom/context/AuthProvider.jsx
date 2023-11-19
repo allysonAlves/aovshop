@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { OnAuth, userUpdateProfile,userUpdatePassword } from '../../Services/FirebaseAuthService';
 import { MessageContext } from './MessageProvider';
-import { listenerUser, getUser } from '../../Services/UserFirestoreService';
+import { listenerUser, getUser, updateAddress, putAddress} from '../../Services/UserFirestoreService';
 
 
 export const AuthContext = React.createContext();
@@ -20,7 +20,12 @@ const AuthProvider = ({children}) => {
   },[]);
 
   useEffect(() => {
+    getUserData();
+  },[auth])
+
+  const getUserData = () => {
     if(auth){      
+      setLoadingUser(true);
       getUser(auth.uid)
       .then(res =>{         
         setUser(res);          
@@ -28,16 +33,11 @@ const AuthProvider = ({children}) => {
       .catch(error =>{
         showMessage('erro no login '+ error, 'danger');
         setLoadingUser(false);
+      }).finally(() => {
+        setLoadingUser(false); 
       });
     }
-
-  },[auth])
-
-  useEffect(() => {
-    if(user){
-      setLoadingUser(false); 
-    }
-  },[user])
+  }
  
 
   const updateProfile = (name, email, photo) => {    
@@ -51,6 +51,26 @@ const AuthProvider = ({children}) => {
     });
   } 
 
+  const saveAddress = async (address) => {   
+    return putAddress(user, address).then(() => {
+      getUserData();
+      showMessage('Endereço salvo com sucesso'); 
+    }).catch(error => {
+      showMessage(error.message);  
+    });
+  }
+
+  const removeAddress = async (removeAddress) => {
+    const newAddressList = [...user.address].filter(item => item.id != removeAddress.id);
+
+    return updateAddress(user, newAddressList).then(() => {
+      getUserData();
+      showMessage('Endereço removido com sucesso'); 
+    }).catch(error => {
+      showMessage(error.message);  
+    });
+  }
+
   return (
     <AuthContext.Provider 
     value={
@@ -61,6 +81,8 @@ const AuthProvider = ({children}) => {
         loadingUser,
         loadSave, 
         updateProfile,
+        saveAddress,
+        removeAddress
       }
     }>        
         {children}

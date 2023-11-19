@@ -5,7 +5,7 @@
 }
 html,body{
   background-color: #333333;
- 
+  width: 100%;
 }
 :root{
   --contentSize: 1250px;
@@ -61,11 +61,12 @@ html,body{
 
   .aov-page{
     padding-top: var(--topSpace);
+    width: 100%;   
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: var(--secundaryColor);
-    min-height: 800px;
+    min-height: 90vh;    
   }
 
   .aov-content{

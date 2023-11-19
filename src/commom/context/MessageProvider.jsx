@@ -14,7 +14,7 @@ const Message = ({children,show,hide, variant}) => {
         <>
             {
                 show && 
-                <Alert 
+                <Alert             
                 style={{position:'absolute', top:'100px', right:'100px',zIndex:'100'}} 
                 variant={variant}>
                     {children} 

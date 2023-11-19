@@ -39,9 +39,9 @@ const FirebaseService = class {
             
             return docRef;
         } catch (e) {            
-            return null;
+            return e;
         }    
-    }
+    }    
 
     async Update(documentId, objectValue)
     {    
@@ -50,7 +50,7 @@ const FirebaseService = class {
            
             return docRef;
         } catch (e) {            
-            return null;
+            return e;
         }    
     }
    

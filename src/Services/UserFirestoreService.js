@@ -1,5 +1,5 @@
-import FirestoreService  from './FirebaseFirestoreService'
-
+import FirestoreService  from './FirebaseFirestoreService';
+import { v4 as uuidv4 } from 'uuid';
 
 const firestoreService = new FirestoreService("users");
 
@@ -15,8 +15,9 @@ const CreateUser = async (user) =>{
         card: {
             validate: validate,
             number: cardNumber,
-            value: 15000
-        }
+            value: 45000
+        },
+        address: {}
       };
    
     await firestoreService.Set(user.uid, userObject);
@@ -31,11 +32,28 @@ const updateUser = async (id, newValue) =>{
     return await firestoreService.Set(id, newValue);    
 }
 
-const updateAddress = async (userIdid, objectAddress) =>{
-   return await firestoreService.Set(id, {
-        address: objectAddress
+const updateAddress = (user, newAddressList) =>{   
+   return firestoreService.Set(user.uid, {
+        address: [...newAddressList]
     });
 }
+
+export const putAddress = (user, address) =>{  
+    const newAddressList = [...user.address];
+    const oldAddress = newAddressList?.find(item => item.id == address.id);
+
+    if(oldAddress)
+    {
+        newAddressList[newAddressList.indexOf(oldAddress)] = address;
+    } else {
+        address.id = uuidv4();
+        newAddressList.push(address);
+    }    
+       
+    return firestoreService.Set(user.uid, {
+        address: newAddressList
+    });   
+ }
 
 const listenerUser = (id, callback) => {
     return firestoreService.ListenerData(id, callback);

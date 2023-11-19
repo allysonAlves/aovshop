@@ -4,15 +4,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 export const payWithUserCardService = (user, creditCard, order) => {
 
-  return new Promise(async (resolve, reject) => {
-   await waitSeconds(3);
+  return new Promise(async (resolve, reject) => {   
    if(order.total > creditCard.value){
       return reject({message: 'limite insuficiente'});
-   }   
-   
-   const logId = uuidv4();
+   }  
+
    const log = {
-      id:logId,       
+      id:uuidv4(),       
       spent: order.total,
       date: Date.now(),
       orderId: order.id,
@@ -21,7 +19,7 @@ export const payWithUserCardService = (user, creditCard, order) => {
 
    const paymentDetails = {
       ...order.paymentDetails,
-      paymentId: logId,
+      paymentId: log.id,
       cardNumber: creditCard.number,
       paymentDate: log.date     
    }
@@ -30,7 +28,7 @@ export const payWithUserCardService = (user, creditCard, order) => {
    card: { 
       ...creditCard, 
       value: creditCard.value - order.total,
-      log:{[logId]:log}
+      log:{[log.id]:log}
    },
    orders: {
          [order.id]: {id: order.id }

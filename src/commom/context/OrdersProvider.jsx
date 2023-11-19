@@ -28,6 +28,11 @@ const OrdersProvider = ({ children }) => {
   const [newOrder, setNewOrder] = useState(initialState);
   const [isSuccessBuy, setIsSuccessBuy ] = useState(false);
   const [isPaymentLoad, setIsPaymentLoad ] = useState(false);
+  const [wizardStep,setWizardStep] = useState(0);
+
+  const setStep = (step) => {
+    setWizardStep(step);
+  }
   
   const setOrderDetails = (order) => {
     setNewOrder((oldOrder) => {
@@ -63,26 +68,35 @@ const OrdersProvider = ({ children }) => {
       return showMessage("preencha todos os dados", "danger");
     }
 
-    try{     
-      setIsPaymentLoad(true);
-      payWithUserCardService(user, creditCard, newOrder)
-      .then(res => {              
-        addOrder(res).then(() => {          
-          showMessage("Compra realizada com sucesso!");
-          setIsSuccessBuy(true);
-        })     
-      }).finally(() => {
-        setIsPaymentLoad(false);
-      })
-      
-    }catch(error){
-      return showMessage("erro no pedido " + error, "danger");
-    }
-    
+         
+    setIsPaymentLoad(true);
+    payWithUserCardService(user, creditCard, newOrder)
+    .then(res => {              
+      addOrder(res)
+      .then(() => {          
+        showMessage("Compra realizada com sucesso!");
+        setIsSuccessBuy(true);
+      })     
+    })
+    .catch(error => {
+      showMessage(error.message, "danger");
+    })
+    .finally(() => {
+      setIsPaymentLoad(false);
+    })     
   };
 
   return (
-    <OrdersContext.Provider value={{ orders,newOrder, setOrderDetails, pay, isPaymentLoad ,isSuccessBuy }}>
+    <OrdersContext.Provider value={{ 
+      wizardStep,
+      orders,
+      newOrder, 
+      isPaymentLoad ,
+      isSuccessBuy, 
+      pay, 
+      setStep,
+      setOrderDetails, 
+      }}>
       {children}
     </OrdersContext.Provider>
   );
