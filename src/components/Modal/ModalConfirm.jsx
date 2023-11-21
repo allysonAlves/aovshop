@@ -5,7 +5,20 @@ import Modal from "react-bootstrap/Modal";
 import './ModalConfirm.css'
 
 
-const ModalConfirm = ({title = '', message = '', onAccept = () =>{} , textCancel = 'Cancelar', textAccept = 'Confirmar', btnOpenText = 'Confirme', mode = "primary" || "danger", CustomButton = null, children}) => {
+const ModalConfirm = ({
+  title = '', 
+  message = '', 
+  onAccept = () =>{} , 
+  textCancel = 'Cancelar', 
+  textAccept = 'Confirmar', 
+  btnOpenText = 'Confirme', 
+  mode = "primary",
+  size = "sm",
+  btnVariant = "primary",   
+  children,
+  ...props
+}) => {
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -17,13 +30,13 @@ const ModalConfirm = ({title = '', message = '', onAccept = () =>{} , textCancel
         <div onClick={handleShow}>
             {children}
         </div> :
-        <Button variant="primary" onClick={handleShow}>
+        <Button {...props} variant={btnVariant} onClick={handleShow}>
             {btnOpenText}
          </Button>
     }
       
 
-      <Modal size="sm" show={show} onHide={handleClose} className="my-modal">
+      <Modal size={size} show={show} onHide={handleClose} className="my-modal">
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>

@@ -14,7 +14,7 @@ const Login = () => {
 
     useEffect(() => {
         if(user){
-            navigate(state?.redirect ? state.redirect : '/account');
+           navigate(state?.redirect ? state.redirect : '/account');
         }
     },[user]);
     

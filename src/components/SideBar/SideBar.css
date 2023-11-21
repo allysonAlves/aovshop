@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 5px;
-    margin: 10px 0 5px 0;
+    margin: 10px 0 25px 0;
 }
 
 .user-nav-btns a{

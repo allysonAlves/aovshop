@@ -8,7 +8,7 @@ import { convertToBrPriceString } from '../../utils/utils'
 
 const Cart = () => {
     const navigate = useNavigate(); 
-    const {cart, total} = useContext(CartContext);
+    const {cart, total, totalCredit} = useContext(CartContext);
     
   return (
     <div className='cart-page'>
@@ -21,7 +21,7 @@ const Cart = () => {
                     <div className='div-btn-finalizar'>
                         <div className='box-total-cart'>
                             <div className='valor-vista'>{convertToBrPriceString(total)} pix ou boleto</div> 
-                            <div className='valor-parcela'>ou em até 12x de {convertToBrPriceString(total/12)} sem juros</div>               
+                            <div className='valor-parcela'>ou em até 12x de {convertToBrPriceString(totalCredit/12)} sem juros</div>               
                         </div>
                         <button onClick={() => navigate('./payment')} className='btn-finalizar-compra'>FINALIZAR PEDIDO</button>
                     </div>           

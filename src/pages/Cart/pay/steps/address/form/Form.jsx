@@ -12,14 +12,14 @@ const MultiInputBox = styled.div`
 `;
 
 const initialAddress = {
-    id: "",
-    nome: "",
+    id: '',
+    nome: '',
     destinatario: '',
-    rua: "",
-    bairro: "",
-    cidade: "",    
+    rua: '',
+    bairro: '',
+    cidade: '',    
     uf:'',
-    cep: "",
+    cep: '',
     referencia:'',
 }
 
@@ -27,18 +27,13 @@ const Form = ({open, address, onClose}) => {
     const { user, saveAddress } = useContext(AuthContext);       
 
     const [newAddress, setNewAddress] = useState(initialAddress);
-    const [loading, setLoading] = useState(false);  
     const [formValid, setFormValid] = useState(false); 
 
     useEffect(() => {  
-        if(address){
-            console.log('new')
-            setNewAddress({...address});
-        }      
-    },[address])   
+        setNewAddress(address || initialAddress);                 
+    },[open]);   
 
-    useEffect(() => {
-       
+    useEffect(() => {       
         setFormValid(
             newAddress.nome &&
             newAddress.destinatario &&
@@ -48,7 +43,6 @@ const Form = ({open, address, onClose}) => {
             newAddress.uf &&
             /\d{8}/.test(newAddress.cep)    
         ); 
-
     },[newAddress]) 
 
     const handleChange = ({target:{id,value}}) => {
@@ -58,27 +52,21 @@ const Form = ({open, address, onClose}) => {
         }))
     }
 
-    const handleSave = () => {        
-        setLoading(true);
+    const handleSave = () => {  
         saveAddress(newAddress).then(() => {
-            handleClose()                      
-        }).finally(() => {
-            setLoading(false);
+            handleClose();                      
         });
     }
 
     const handleClose = () => {
+        setNewAddress({...initialAddress});
         onClose();
-        setNewAddress(initialAddress);
-    }
-    
+    }    
 
   return (
     <Modal 
         show={open}
-        onHide={handleClose}
-        // backdrop="static"
-        // keyboard={false}
+        onHide={handleClose}       
         size="md"
     >
         <Modal.Header>

@@ -7,32 +7,21 @@ export const payWithUserCardService = (user, creditCard, order) => {
   return new Promise(async (resolve, reject) => {   
    if(order.total > creditCard.value){
       return reject({message: 'limite insuficiente'});
-   }  
+   } 
 
-   const log = {
-      id:uuidv4(),       
-      spent: order.total,
-      date: Date.now(),
-      orderId: order.id,
-      paymentDetails: order.paymentDetails
-   }  
+   await waitSeconds(2);
 
    const paymentDetails = {
-      ...order.paymentDetails,
-      paymentId: log.id,
+      ...order.paymentDetails,      
       cardNumber: creditCard.number,
-      paymentDate: log.date     
-   }
-   
+      paymentDate: Date.now()     
+   }   
+
    updateUser(user.uid, {
-   card: { 
-      ...creditCard, 
-      value: creditCard.value - order.total,
-      log:{[log.id]:log}
-   },
-   orders: {
-         [order.id]: {id: order.id }
-      }
+      card: { 
+         ...creditCard, 
+         value: creditCard.value - order.total,      
+      },   
    })
    .then(() => resolve({...order, paymentDetails: paymentDetails}))
    .catch((error) => reject(error));

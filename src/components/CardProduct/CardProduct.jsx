@@ -15,6 +15,7 @@ import { FaShoppingCart } from "react-icons/fa";
 
 //styles --------------------------------
 import styles from "./styles.module.css";
+import { calculateDiscount, convertToBrPriceString } from "../../utils/utils";
 
 const CardProduct = ({ product }) => {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ const CardProduct = ({ product }) => {
 
         <div>
           <div className="text-secondary" style={{ fontSize: 14 }}>
-            De <s> R$ {product.price} </s> por:
+            De <s> {convertToBrPriceString(product.price)} </s> por:
             <br />
           </div>
 
@@ -51,11 +52,11 @@ const CardProduct = ({ product }) => {
             className="aov-text-green fs-4 aov-bold"
             // style={{ color: "#008000", fontWeight: "bold", fontSize: 23 }}
           >
-            R$ {product.price} à vista <br />
+            {convertToBrPriceString(calculateDiscount(product.price, product.sale))} à vista <br />
           </div>
 
           <div className="text-secondary fs-6">
-            12x de R$ {product.price} sem juros
+            12x de {convertToBrPriceString(product.price / 12)} sem juros
           </div>
         </div>
         {cart[product.id] ? (

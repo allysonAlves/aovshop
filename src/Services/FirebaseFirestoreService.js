@@ -54,9 +54,9 @@ const FirebaseService = class {
         }    
     }
    
-    async Delete(documentId)
+    Delete(documentId)
     {
-        await deleteDoc(doc(firestore, this.collection, documentId));
+        return deleteDoc(doc(firestore, this.collection, documentId));
     }
 
     ListenerData(documentId, callback){

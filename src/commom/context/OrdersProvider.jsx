@@ -1,37 +1,57 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "./AuthProvider";
-import { addOrder } from "../../Services/OrdersFirestoreService";
+import { addOrder, getOrdersByUser } from "../../Services/OrdersFirestoreService";
 import { v4 as newGuid } from "uuid";
 import { payWithUserCardService } from "../../Services/PayService";
 import { MessageContext } from "./MessageProvider";
-import { orderStatusEnum } from "../../utils/utils";
+import { getOrderId, orderStatusEnum } from "../../utils/utils";
 
 export const OrdersContext = React.createContext();
 OrdersContext.displayName = "orders";
 
 const initialState = {
-  id: null,
-  userId: null,
-  products: null,
+  id: '',
+  userId: '',
+  products: {},
   total: 0,
-  dateCreate: null,
+  dateCreate: '',
   paymentDetails: {},
-  address: null,
-  statusRegister: orderStatusEnum.approve.id
+  address: {},
+  paymentStatus: orderStatusEnum.approve.id,
+  deliveryStatus: '',  
 };
 
 const OrdersProvider = ({ children }) => {
   const { creditCard, user } = useContext(AuthContext);
-  const {showMessage} = useContext(MessageContext);
+  const { showMessage } = useContext(MessageContext);
 
-  const [orders, setOrders] = useState();
-  const [newOrder, setNewOrder] = useState(initialState);
+  const [orderList, setOrderList] = useState({});
+  const [orderLoading, setOrderLoading] = useState(false);
+
+  const [newOrder, setNewOrder] = useState({...initialState});
   const [isSuccessBuy, setIsSuccessBuy ] = useState(false);
   const [isPaymentLoad, setIsPaymentLoad ] = useState(false);
-  const [wizardStep,setWizardStep] = useState(0);
+
+  const [wizardStep, setWizardStep] = useState(0);
+
+  const getOrderList = () => {
+    setOrderLoading(true);
+    getOrdersByUser(user?.uid).then(response => {
+      setOrderList(response);
+    }).catch(error => {
+      showMessage(error.message,'danger');
+    }).finally(() => {
+      setOrderLoading(false);
+    })
+
+  }
 
   const setStep = (step) => {
     setWizardStep(step);
+  }
+
+  const clearOrder = () => {
+    setNewOrder({ ...initialState });
   }
   
   const setOrderDetails = (order) => {
@@ -39,9 +59,10 @@ const OrdersProvider = ({ children }) => {
       return {
         ...oldOrder,
         ...order,
-        id: newOrder.id ? newOrder.id : newGuid(),
-        userId: user.uid,
-      };
+        id: newOrder.id ? newOrder.id : getOrderId(user.uid),
+        userId: user?.uid,
+        
+      };      
     });
   };
 
@@ -54,26 +75,36 @@ const OrdersProvider = ({ children }) => {
   };
 
   const pay = async (cart,total) => {
+    const cartToOrder = Object.values(cart).map(item => ({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      amount: item.amount,
+      image: item.images[0],
+      sale: item.sale      
+    }));  
 
-    setOrderDetails({
+    const currentOrder = {
+      ...newOrder,
       userId: user.uid,
-      products: cart,
+      products: cartToOrder,
       total: total,
       paymentDetails:{parcelas:1},
       dateCreate: Date.now(),
-    });
-
+    };
+    
     if (!validateOrder())
     {
       return showMessage("preencha todos os dados", "danger");
     }
-
          
     setIsPaymentLoad(true);
-    payWithUserCardService(user, creditCard, newOrder)
+
+    payWithUserCardService(user, creditCard, currentOrder)
     .then(res => {              
       addOrder(res)
-      .then(() => {          
+      .then(() => {       
+        setNewOrder({...res});        
         showMessage("Compra realizada com sucesso!");
         setIsSuccessBuy(true);
       })     
@@ -87,16 +118,20 @@ const OrdersProvider = ({ children }) => {
   };
 
   return (
-    <OrdersContext.Provider value={{ 
-      wizardStep,
-      orders,
-      newOrder, 
+    <OrdersContext.Provider 
+    value={{ 
       isPaymentLoad ,
+      orderLoading,
       isSuccessBuy, 
+      wizardStep,
+      orderList,
+      newOrder, 
       pay, 
       setStep,
-      setOrderDetails, 
-      }}>
+      clearOrder,
+      getOrderList, 
+      setOrderDetails,
+    }}>
       {children}
     </OrdersContext.Provider>
   );

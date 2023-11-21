@@ -5,11 +5,12 @@ import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { AuthContext } from "../../../commom/context/AuthProvider";
 import styles from "./styles.module.css";
 import { FaUser } from "react-icons/fa";
+import ModalConfirm from "../../../components/Modal/ModalConfirm";
 
 const EditAccount = () => {
   const inputRef = useRef();
   const navigate = useNavigate();
-  const { user, loadSave, updateProfile, loadingUser } = useContext(AuthContext);
+  const { user, loadSave, updateProfile, loadingUser, deleteUserAndAccount } = useContext(AuthContext);
   const [photo, setPhoto] = useState();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,6 +23,10 @@ const EditAccount = () => {
       updateProfile(name, email, photo);
     }
   };
+
+  const handleDeleteAccount = () => {
+    deleteUserAndAccount();
+  }
 
   if (loadingUser) {
     return <Spinner />;
@@ -42,10 +47,16 @@ const EditAccount = () => {
           validated={true}
           onSubmit={handleSubmit}
         >
-          <Button className={styles.btn_delete_account} variant="outline-dark">
-            {" "}
-            Excluir conta
-          </Button>
+          <ModalConfirm 
+          size="md"
+          mode="danger"
+          onAccept={handleDeleteAccount} 
+          className={styles.btn_delete_account}
+          btnVariant='outline-dark'
+          btnOpenText="Excluir conta"
+          title="Deseja excluir sua conta?" 
+          message="Ao confirmar todas seus dados serão apagados permanentemente!"/>            
+
           <Row className="mb-3">
             <Form.Group className="text-center" md="4" as={Col}>
               {

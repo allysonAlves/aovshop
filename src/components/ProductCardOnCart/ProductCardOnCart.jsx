@@ -6,6 +6,7 @@ import { CartContext } from "../../commom/context/CartProvider";
 
 import "./ProductCardOnCart.css";
 import { Card } from "react-bootstrap";
+import { calculateDiscount, convertToBrPriceString } from "../../utils/utils";
 const ProductCardOnCart = ({ product }) => {
   const navigate = useNavigate();
 
@@ -35,10 +36,10 @@ const ProductCardOnCart = ({ product }) => {
           <div className="div-prec-btns">
             <div className="div-precos">
               <div className="preco-vista">
-                {convert_moeda(product.price * (1 - product.sale / 100))}
+                {convertToBrPriceString(calculateDiscount(product.price, product.sale))}
               </div>
               <div className="preco-parcelado">
-                ou {convert_moeda(product.price * (1 - 10 / 100))} em 12x
+                ou {convertToBrPriceString(product.price)} em 12x
               </div>
             </div>
             <div className="div-btns">

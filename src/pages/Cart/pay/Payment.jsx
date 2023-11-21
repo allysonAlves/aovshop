@@ -1,36 +1,32 @@
-import React, { useContext, useEffect, useState } from "react";
-import { CartContext } from "../../../commom/context/CartProvider";
+import React, { useContext, useEffect} from "react";
 import { AuthContext } from "../../../commom/context/AuthProvider";
-import { initialOrder } from "../../../utils/utils";
-
 import { OrdersContext } from "../../../commom/context/OrdersProvider";
 import { useNavigate } from "react-router-dom";
-import {
-  Box,
-  Card,
-  CardContent,
-  Paper,
+import {  
   Step,
   StepLabel,
-  Stepper,
-  ThemeProvider,
-  createTheme,
+  Stepper,  
 } from "@mui/material";
-import { red } from "@mui/material/colors";
+import styled from '@emotion/styled';
+
 import Address from "./steps/address/Address";
 import Pay from "./steps/pay/Pay";
+import BuyCompleted from "./steps/paymentSuccess/BuyCompleted";
 
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
+const StepBox = styled.div`
+  & .Mui-active {
+    fill: orange;
+  } 
+
+  & .Mui-completed {
+    fill: green;
+  } 
+`
 
 const Payment = () => {
   const navigate = useNavigate();
-  const { creditCard, user, loadingUser } = useContext(AuthContext);
-  const { cart, total } = useContext(CartContext);
-  const { pay, isPaymentLoad, setOrderDetails, newOrder, isSuccessBuy, wizardStep } =
+  const {  user, loadingUser } = useContext(AuthContext);
+  const { wizardStep } =
     useContext(OrdersContext);
 
   useEffect(() => {
@@ -39,36 +35,29 @@ const Payment = () => {
     }
   }, [user]);
 
-  useEffect(() => {
-    if (isSuccessBuy) {
-      navigate("/account/orders");
-    }
-  }, [isSuccessBuy]);
-
   const components = [
     () => <Address />,
     () => <Pay />,
+    () => <BuyCompleted />,
   ];
 
-  return (
-    <ThemeProvider theme={darkTheme}>
-      <div className="aov-page">
-        <div className="aov-content" style={{ paddingTop: 25 }}>
-          <Stepper activeStep={wizardStep} style={{ marginBottom: 25 }}>
-            <Step key={1}>
-              <StepLabel color={red[200]}>Endereço</StepLabel>
-            </Step>
-            <Step key={2}>
-              <StepLabel>Pagamento</StepLabel>
-            </Step>
-            <Step key={3}>
-              <StepLabel>Concluído</StepLabel>
-            </Step>
-          </Stepper>          
-          {components[wizardStep]()}
-        </div>
-      </div>
-    </ThemeProvider>
+  return (    
+    <div className="aov-page">
+      <StepBox className="aov-content" style={{ paddingTop: 25 }}>
+        <Stepper activeStep={wizardStep} style={{ marginBottom: 25 }}>
+          <Step key={0}>
+            <StepLabel>Endereço</StepLabel>
+          </Step>
+          <Step key={1}>
+            <StepLabel>Pagamento</StepLabel>
+          </Step>
+          <Step completed={wizardStep == 2} key={2}>
+            <StepLabel>Concluído</StepLabel>
+          </Step>
+        </Stepper>          
+        {components[wizardStep]()}
+      </StepBox>
+    </div>   
   );
 };
 

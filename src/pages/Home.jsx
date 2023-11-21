@@ -14,9 +14,6 @@ function Home() {
 
   const [maisVendidos, setMaisVendidos] = useState([])
   const [novidades, setNovidades] = useState([])
-  const [produtosFiltrados, setProdutosfiltrados] = useState([]);
-  const produtosURL = import.meta.env.VITE_URL_PRODUTOS;
-  
 
     useEffect(() =>{
      
@@ -29,9 +26,7 @@ function Home() {
     }
     ,[])
     
-    
-    
-
+ 
   return (
     <div className='main'>
       <div className='outdoor'>

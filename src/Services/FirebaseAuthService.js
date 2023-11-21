@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -16,7 +16,7 @@ import {
   reauthenticateWithCredential,
   EmailAuthProvider,
   deleteUser,
-  getAdditionalUserInfo
+  getAdditionalUserInfo,
 } from "firebase/auth";
 
 import app from "./FirebaseConfigApp";
@@ -63,22 +63,23 @@ const OnAuth = (setUser) => {
   });
 };
 
-const OnSignOut = async () => {
-  const credential = await signOut(auth);
+const OnSignOut = () => {
+  return signOut(auth);
 };
 
-const LoginWithGoogle = () => {
+const LoginWithGoogle = () => {  
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider)
-    .then((result) => {
+    .then((result) => {    
       // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const isNewUser = getAdditionalUserInfo(result).isNewUser;
-      console.log(adicional)
+      console.log(result)
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
       // IdP data available using getAdditionalUserInfo(result)
+      console.log(isNewUser)
       if(isNewUser)
       {
         CreateUser(user);       
@@ -90,8 +91,7 @@ const LoginWithGoogle = () => {
       // Handle Errors here.
       const errorCode = error.code;
       const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.customData.email;
+      // The email of the user's account used.      
       // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
       
@@ -150,7 +150,7 @@ const userUpdateProfile = (name, photo) => {
   });
 };
 
-const userDelete = () => {
+const accountDelete = () => {
   return new Promise((resolve, reject) => {
     const user = auth.currentUser;
     deleteUser(user).then(resolve).catch(reject);
@@ -165,5 +165,5 @@ export {
   LoginWithGoogle,  
   userUpdatePassword,
   userUpdateProfile,
-  userDelete
+  accountDelete
 };

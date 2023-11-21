@@ -1,7 +1,8 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import { OnAuth, userUpdateProfile,userUpdatePassword } from '../../Services/FirebaseAuthService';
+import { OnAuth, userUpdateProfile,userUpdatePassword, accountDelete } from '../../Services/FirebaseAuthService';
+import { listenerUser, getUser, updateAddress, putAddress, deleteUser} from '../../Services/UserFirestoreService';
 import { MessageContext } from './MessageProvider';
-import { listenerUser, getUser, updateAddress, putAddress} from '../../Services/UserFirestoreService';
+
 
 
 export const AuthContext = React.createContext();
@@ -9,7 +10,7 @@ export const AuthContext = React.createContext();
 const AuthProvider = ({children}) => {  
   const {showMessage} = useContext(MessageContext);
   const [auth , setAuth] = useState(null);
-  const [user, setUser] = useState({address: {}, card: null});
+  const [user, setUser] = useState(null);
   const [loadingUser, setLoadingUser] = useState(true);
   const [loadSave, setLoadSave] = useState(false); 
 
@@ -71,18 +72,31 @@ const AuthProvider = ({children}) => {
     });
   }
 
+  const deleteUserAndAccount = () => {
+    Promise.all([deleteUser(user.uid),accountDelete(user.uid)]).then(() => {
+
+    }).catch(error => {
+
+    }).finally(() => {
+
+    })
+    
+    
+  }
+
   return (
     <AuthContext.Provider 
     value={
       {
         user: auth, 
-        creditCard: user.card,
-        address: user.address,
+        creditCard: user?.card || {},
+        address: user?.address,
         loadingUser,
         loadSave, 
         updateProfile,
         saveAddress,
-        removeAddress
+        removeAddress,
+        deleteUserAndAccount
       }
     }>        
         {children}

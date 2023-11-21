@@ -10,7 +10,7 @@ import Categoria from "./pages/Categoria"
 import Login from "./pages/Login/Login.jsx"
 import Cadastro from "./pages/Login/Cadastro.jsx"
 import Account from "./pages/account/Account.jsx"
-import Orders from "./pages/account/Orders.jsx"
+import Orders from "./pages/account/orders/Orders.jsx"
 import Cart from "./pages/Cart/Cart.jsx"
 
 import './index.css'

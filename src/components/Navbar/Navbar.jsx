@@ -43,8 +43,7 @@ function Navbar() {
         e.preventDefault();       
         if(!e?.target[0]?.value) return
 
-        navigate(`/search?q=${e.target[0].value}&page=1`);
-        
+        navigate(`/search?q=${e.target[0].value}&page=1`);        
     };
 
     

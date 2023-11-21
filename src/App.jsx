@@ -10,6 +10,13 @@ import CartProvider from './commom/context/CartProvider'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MessageProvider from './commom/context/MessageProvider'
+import { ThemeProvider, createTheme } from '@mui/material'
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",   
+  },
+});
 
 function App() {  
   
@@ -22,16 +29,18 @@ function App() {
 
   return (
     <div className="App">
-      <StartInformation/> 
-      <MessageProvider>
-        <AuthProvider>
-            <CartProvider>
-              <Navbar/>        
-              <Outlet/> 
-            </CartProvider>
-            <Footer/> 
-        </AuthProvider>      
-      </MessageProvider>
+      <ThemeProvider theme={darkTheme}>
+        <StartInformation/> 
+        <MessageProvider>
+          <AuthProvider>
+              <CartProvider>
+                <Navbar/>        
+                <Outlet/> 
+              </CartProvider>
+              <Footer/> 
+          </AuthProvider>      
+        </MessageProvider>
+      </ThemeProvider>
     </div>
   )
 }

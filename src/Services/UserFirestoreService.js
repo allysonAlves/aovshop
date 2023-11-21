@@ -1,11 +1,12 @@
+import moment from 'moment';
 import FirestoreService  from './FirebaseFirestoreService';
 import { v4 as uuidv4 } from 'uuid';
 
 const firestoreService = new FirestoreService("users");
 
 const CreateUser = async (user) =>{
-    
-    const validate =  new Date().setFullYear(date.getFullYear() + 5);
+    debugger
+    const validate =  moment().add(5,'years').valueOf();
     const cardNumber = parseInt('1947' + Math.floor(1000000000000 * Math.random(0,10)));
     
     const userObject = {
@@ -17,7 +18,7 @@ const CreateUser = async (user) =>{
             number: cardNumber,
             value: 45000
         },
-        address: {}
+        address: []
       };
    
     await firestoreService.Set(user.uid, userObject);
@@ -38,8 +39,9 @@ const updateAddress = (user, newAddressList) =>{
     });
 }
 
-export const putAddress = (user, address) =>{  
-    const newAddressList = [...user.address];
+export const putAddress = (user, address) =>{ 
+    console.log(user) 
+    const newAddressList = [...user?.address];
     const oldAddress = newAddressList?.find(item => item.id == address.id);
 
     if(oldAddress)
@@ -53,6 +55,10 @@ export const putAddress = (user, address) =>{
     return firestoreService.Set(user.uid, {
         address: newAddressList
     });   
+ }
+
+ export const deleteUser = (userId) => {
+    return firestoreService.Delete(userId);
  }
 
 const listenerUser = (id, callback) => {

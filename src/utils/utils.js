@@ -2,8 +2,20 @@ export const convertToBrPriceString = (price) =>{
    return price.toLocaleString("pt-br", { style: "currency", currency: "BRL" });
 }
 
+export function calculateDiscount(price, percentage) {
+    let discountvalue = price * (percentage / 100);
+    let priceWithDiscount = price - discountvalue;
+    return priceWithDiscount;
+  } 
+
 export const convertToCardNumber = (cardNumber) => {
-    return "**** **** **** " + cardNumber.slice(-4);
+    return "**** **** **** " + cardNumber.toString().slice(-4);
+}
+
+export const getOrderId = (userId) => {
+    const initial = userId.slice(0,2);    
+    return `${initial}${Date.now()}`.toUpperCase();
+
 }
 
 export const orderStatusEnum = {
@@ -40,6 +52,12 @@ export const calcCart = (cart) => {
     },0);    
 }
 
+export const calculateCreditTotal = (cart) => {
+    return Object.values(cart).reduce((acumulator,product) => {        
+        return acumulator + (product.price * product.amount);       
+    },0);  
+}
+
 export const initialOrder = {
     id: null,
     userId: null,
@@ -48,5 +66,6 @@ export const initialOrder = {
     dateCreate: null,
     paymentDetails: {},
     address: null,
-    statusRegister: orderStatusEnum.approve.id
+    statusRegister: orderStatusEnum.approve.id,
+    paymentDate: ''
   };
